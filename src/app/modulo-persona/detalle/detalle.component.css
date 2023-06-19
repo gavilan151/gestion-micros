@@ -1,0 +1,19 @@
+.editar-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+
+  background: rgb(213, 217, 204);
+}
+
+.campo{
+  font-size: .8 rem;
+
+  margin: .3rem;
+  background: rgb(231, 230, 230);
+  border: 1px solid rgb(183, 183, 164);
+}
+
+.titulo{
+  background: rgb(116, 189, 187);
+}

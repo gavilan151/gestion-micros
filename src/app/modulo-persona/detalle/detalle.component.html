@@ -1,0 +1,16 @@
+<div *ngIf="personaSeleccionada" class="editar-container">
+  <h4 class="titulo">Editando los datos de la persona</h4>
+
+  <label>Edad:
+    <input name="edad" type="number" maxlength="3" required size="3"  [(ngModel)]="personaSeleccionada.edad" required class="campo"/>
+  </label>
+
+  <label>Nombre:
+    <input type="text" size="100" [(ngModel)]="personaSeleccionada.nombre" class="campo">
+  </label>
+  <label>Apellido:
+    <input type="text" size="100" [(ngModel)]="personaSeleccionada.apellido" class="campo">
+  </label>
+</div>
+
+<button (click)="volverAtras()">Volver </button>
