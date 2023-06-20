@@ -1,25 +1,54 @@
-.persona-container {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  margin: 20px;
-  background: rgb(0, 238, 255);
-}
-.container {
-  display: flex;
-  flex-direction: column;
-
-}
-
-.boton-editar{
+.boton-editar {
   margin-right: 8px;
   text-align: center;
+}
+
+.demo-table {
+  width: 100%;
+  cursor:default;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
 
 }
 
-.campo{
-  font-size: .8 rem;
-  width: 4rem;
-  background: rgb(231, 230, 230);
-  border: 1px solid rgb(183, 183, 164);
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+.header {
+  color: firebrick;
+}
+.headerCentrada {
+  text-align: center;
+  color: firebrick;
+}
+
+.centrada {
+  text-align: center;
+}
+.contenedor {
+  margin: 0 20%;
+}
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.bm {
+  text-align: right;
+  cursor: pointer;
+}
+.alta {
+  cursor: pointer;
+  margin: 0 11%;
+}
+.toolbar{
+  margin-bottom: 5px;
+
 }

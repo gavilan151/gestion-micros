@@ -9,14 +9,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 
+
 @NgModule({
-  declarations: [
-    TopbarComponent,
-    SidebarComponent
-  ],
+  declarations: [TopbarComponent, SidebarComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -26,8 +24,9 @@ import { RouterModule } from '@angular/router';
     MatLegacyListModule,
     MatSidenavModule,
     MatMenuModule,
-    RouterModule
+    RouterModule,
+    
   ],
-  exports: [TopbarComponent, SidebarComponent]
+  exports: [TopbarComponent, SidebarComponent],
 })
-export class SharedModule { }
+export class SharedModule {}

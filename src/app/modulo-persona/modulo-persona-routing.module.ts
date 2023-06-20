@@ -6,7 +6,7 @@ import { ListadoComponent } from './listado/listado.component';
 const routes: Routes = [
   {path:"listado", component:ListadoComponent},
   {path:"detalle/:id", component:DetalleComponent},
-  {path:"", redirectTo: "listado",pathMatch:"full"}
+  {path:"", redirectTo: "persona",pathMatch:"full"}
 ];
 
 @NgModule({
