@@ -5,13 +5,12 @@
 
 .demo-table {
   width: 100%;
-  cursor:default;
+  cursor: default;
 }
 
 .mat-mdc-row .mat-mdc-cell {
   border-bottom: 1px solid transparent;
   border-top: 1px solid transparent;
-
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
@@ -25,6 +24,7 @@
 .header {
   color: firebrick;
 }
+
 .headerCentrada {
   text-align: center;
   color: firebrick;
@@ -38,12 +38,13 @@
   font-size: 14px;
   width: 100%;
 }
+
 .bm {
   text-align: right;
   cursor: pointer;
 }
+
 .alta {
   cursor: pointer;
   margin: 0 11%;
 }
-

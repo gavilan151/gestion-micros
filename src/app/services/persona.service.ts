@@ -29,9 +29,10 @@ export class PersonaService {
     new persona(18, 21, 'Claudia', 'Miguel'),
     new persona(19, 19, 'Pablo', 'Etar'),
     new persona(20,13, 'Alejandra Monica', 'Rodriguez'),
+
   ];
 
-  
+
 
   findAll(): Observable<persona[]> {
     return of(this.personaList).pipe(
@@ -47,5 +48,9 @@ export class PersonaService {
       mergeMap((p) => p),
       first(persona => persona.id === id)
     );
+  }
+
+  agregar(datosPersona: persona){
+    this.personaList.unshift(datosPersona);
   }
 }
