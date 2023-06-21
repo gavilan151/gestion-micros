@@ -3,6 +3,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { persona } from 'src/app/models/persona';
 
+
+
+
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.component.html',
@@ -10,7 +13,7 @@ import { persona } from 'src/app/models/persona';
 })
 export class DetalleComponent implements OnInit {
   personaSeleccionada: persona | null = null;
-
+  tiles: any[] = [ ];
   constructor(
     private personaService: PersonaService,
     private route: ActivatedRoute,

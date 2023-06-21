@@ -18,3 +18,14 @@
 .titulo{
   background: rgb(116, 189, 187);
 }
+.ancho{
+  width: 90%;
+  margin-top: 15px;
+}
+.contenedor2 {
+  margin: 0 30%;
+}
+
+.grid{
+  margin-top: 2px;
+}

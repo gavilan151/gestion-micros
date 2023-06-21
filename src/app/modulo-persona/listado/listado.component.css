@@ -33,9 +33,7 @@
 .centrada {
   text-align: center;
 }
-.contenedor {
-  margin: 0 20%;
-}
+
 .mat-mdc-form-field {
   font-size: 14px;
   width: 100%;
@@ -48,7 +46,4 @@
   cursor: pointer;
   margin: 0 11%;
 }
-.toolbar{
-  margin-bottom: 5px;
 
-}

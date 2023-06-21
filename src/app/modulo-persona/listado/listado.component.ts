@@ -56,6 +56,10 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     this.router.navigate(["detalle",xpersona])
   }
 
+  nuevo() {
+    this.router.navigate(["detalle","0"])
+  }
+
 eliminar(){
 
 }

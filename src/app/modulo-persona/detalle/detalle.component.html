@@ -1,9 +1,60 @@
-<h4 class="titulo">Editando los datos de la persona</h4>
+
+<mat-toolbar class="toolbar">
+  <span class="contenedor2">Datos de Personas</span>
+</mat-toolbar>
+<div class="contenedor2">
+<mat-card>
+  <form>
+    <mat-grid-list cols="2" rowHeight="57px" class="grid">
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1"    [style.background]="'#F9FBFD'" >
+        <mat-form-field class="ancho">
+          <mat-label>Id</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="4"   [style.background]="'F9FBFD'">
+        <img src="./assets/personas.png" alt="">
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1"   [style.background]="'#F9FBFD'">
+        <mat-form-field class="ancho">
+          <mat-label>Nombre</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1"   [style.background]="'#F9FBFD'">
+        <mat-form-field class="ancho">
+          <mat-label>Apellido</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1"   [style.background]="'#F9FBFD'">
+        <mat-form-field class="ancho">
+          <mat-label>Edad</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="2" [rowspan]="1"   [style.background]="'#F4F6F8'">
+        <button mat-raised-button style="margin-right: 20px;"><mat-icon>save</mat-icon>Guardar cambios</button>
+        <button mat-raised-button><mat-icon >reply</mat-icon>Regresas sin guardar</button>
+
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </form>
+</mat-card>
+
 <div *ngIf="personaSeleccionada" class="editar-container">
 
 
   <label>Edad:
-    <input name="edad" type="number" maxlength="3" required size="3"  [(ngModel)]="personaSeleccionada.edad" required class="campo"/>
+    <input name="edad" type="number" maxlength="3" required size="3" [(ngModel)]="personaSeleccionada.edad" required
+      class="campo" />
   </label>
 
   <label>Nombre:
@@ -15,3 +66,4 @@
 </div>
 
 <button (click)="volverAtras()">Volver </button>
+</div>
