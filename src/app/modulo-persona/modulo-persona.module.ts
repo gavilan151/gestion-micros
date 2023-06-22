@@ -25,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [DetalleComponent, ListadoComponent],
@@ -50,8 +51,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatToolbarModule,
     MatGridListModule,
 
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   exports: [DetalleComponent, ListadoComponent],
 })

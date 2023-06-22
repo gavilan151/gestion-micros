@@ -3,9 +3,9 @@ import {RouterModule, Routes} from "@angular/router";
 
 const routes: Routes = [
   {path:"", redirectTo: "persona",pathMatch:"full"},
-  //{path:"listado", component:ListadoComponent},
+ // {path:"listado", component:ListadoComponent},
   //{path:"detalle", component:DetalleComponent}
-  // {path:"persona", loadChildren:()=> import("./modules/modulo-persona/modulo-persona.module").then(mod=> mod.ModuloPersonaModule)}
+  //{path:"persona", loadChildren:()=> import("./modules/modulo-persona/modulo-persona.module").then(mod=> mod.ModuloPersonaModule)}
   {path:'persona', loadChildren:()=> import('./modulo-persona/modulo-persona.module').then(mod=> mod.ModuloPersonaModule)}];
 
 // const routes: Routes = [

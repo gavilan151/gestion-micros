@@ -1,68 +1,86 @@
-
 <mat-toolbar class="toolbar">
   <span class="contenedor2">Datos de Personas</span>
 </mat-toolbar>
 <div class="contenedor2">
-<mat-card>
-  <form [formGroup]="form"  (ngSubmit)="agregar()">
-    <mat-grid-list cols="2" rowHeight="57px" class="grid">
+  <mat-card>
+    <form [formGroup]="form" (ngSubmit)="guardarCambios()">
+      <mat-grid-list cols="2" rowHeight="57px" class="grid">
 
-      <mat-grid-tile [colspan]="1" [rowspan]="1"    [style.background]="'#F9FBFD'" >
-        <mat-form-field class="ancho">
-          <mat-label>Id</mat-label>
-          <input matInput formControlName="id">
-        </mat-form-field>
-      </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#F9FBFD'">
 
-      <mat-grid-tile [colspan]="1" [rowspan]="4"   [style.background]="'F9FBFD'">
-        <img src="./assets/personas.png" alt="">
-      </mat-grid-tile>
+          <mat-form-field class="ancho">
+            <mat-label>Id</mat-label>
 
-      <mat-grid-tile [colspan]="1" [rowspan]="1"   [style.background]="'#F9FBFD'">
-        <mat-form-field class="ancho">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="nombre">
-        </mat-form-field>
-      </mat-grid-tile>
+            <input matInput formControlName="id" />
 
-      <mat-grid-tile [colspan]="1" [rowspan]="1"   [style.background]="'#F9FBFD'">
-        <mat-form-field class="ancho">
-          <mat-label>Apellido</mat-label>
-          <input matInput formControlName="apellido">
-        </mat-form-field>
-      </mat-grid-tile>
+            <div class="error" *ngIf="form.get('id')?.hasError('maxlength')">
+                El id debe tener como maximo <strong>10 caracteres</strong>
+            </div>
+ 
+          </mat-form-field>
 
-      <mat-grid-tile [colspan]="1" [rowspan]="1"   [style.background]="'#F9FBFD'">
-        <mat-form-field class="ancho">
-          <mat-label>Edad</mat-label>
-          <input matInput formControlName="edad">
-        </mat-form-field>
-      </mat-grid-tile>
+        </mat-grid-tile>
 
-      <mat-grid-tile [colspan]="2" [rowspan]="1"   [style.background]="'#F4F6F8'">
-        <button type="submit" [disabled]="form.invalid" style="margin-right: 20px;" mat-raised-button><mat-icon>save</mat-icon>Guardar cambios</button>
-        <button (click)="volverAtras() " mat-raised-button><mat-icon >reply</mat-icon>Regresas sin guardar</button>
-      </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="4" [style.background]="'F9FBFD'">
+          <img src="./assets/personas.png" alt="" />
+        </mat-grid-tile>
 
-    </mat-grid-list>
-  </form>
-</mat-card>
+        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#F9FBFD'">
 
-<div *ngIf="personaSeleccionada" class="editar-container">
+          <mat-form-field class="ancho">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" />
+          </mat-form-field>
 
+        </mat-grid-tile>
 
-  <label>Edad:
-    <input name="edad" type="number" maxlength="3" required size="3" [(ngModel)]="personaSeleccionada.edad" required
-      class="campo" />
-  </label>
+        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#F9FBFD'">
+          <mat-form-field class="ancho">
+            <mat-label>Apellido</mat-label>
+            <input matInput formControlName="apellido" />
+          </mat-form-field>
+        </mat-grid-tile>
 
-  <label>Nombre:
-    <input type="text" size="100" [(ngModel)]="personaSeleccionada.nombre" class="campo">
-  </label>
-  <label>Apellido:
-    <input type="text" size="100" [(ngModel)]="personaSeleccionada.apellido" class="campo">
-  </label>
-</div>
+        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#F9FBFD'">
+          <mat-form-field class="ancho">
+            <mat-label>Edad</mat-label>
 
-<!-- <button (click)="volverAtras()">Volver </button> -->
+            <input matInput formControlName="edad" />
+
+            <div class="error" *ngIf="form.get('edad')?.hasError('pattern') || form.get('edad')?.hasError('min') || form.get('edad')?.hasError('max')">
+                Solo <strong>numeros</strong>, edad entre <strong> 0 y 110</strong>
+            </div>
+
+          </mat-form-field>
+
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'#F4F6F8'">
+          <button type="submit" [disabled]="form.invalid" style="margin-right: 20px" mat-raised-button>
+            <mat-icon>save</mat-icon>Guardar cambios
+          </button>
+          <button type="button" (click)="volverAtras()" mat-raised-button>
+            <mat-icon>reply</mat-icon>Regresar sin guardar
+          </button>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+    </form>
+  </mat-card>
+
+  <!-- <div *ngIf="personaSeleccionada" class="editar-container">
+    <label>Edad:
+      <input name="edad" type="number" maxlength="3" required size="3" [(ngModel)]="personaSeleccionada.edad" required
+        class="campo" />
+    </label>
+
+    <label>Nombre:
+      <input type="text" size="100" [(ngModel)]="personaSeleccionada.nombre" class="campo" />
+    </label>
+    <label>Apellido:
+      <input type="text" size="100" [(ngModel)]="personaSeleccionada.apellido" class="campo" />
+    </label>
+  </div> -->
+
+  <!-- <button (click)="volverAtras()">Volver </button> -->
 </div>

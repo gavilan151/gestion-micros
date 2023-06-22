@@ -1,3 +1,4 @@
+import { DetalleComponent } from './../detalle/detalle.component';
 import { Component } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -9,6 +10,7 @@ import { PersonaService } from 'src/app/services/persona.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 
 
@@ -26,8 +28,17 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   constructor(
     private personaService: PersonaService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(DetalleComponent, {
+      width: '550px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
 
   displayedColumns: string[] = ['id', 'nombre', 'apellido', 'edad', "bm"];
   clickedRows = new Set<persona>();
@@ -55,11 +66,12 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   }
 
   editar(xpersona: string) {
-    this.router.navigate(["detalle", xpersona])
+   // this.openDialog('1ms', '1ms'); //abre en una ventana
+    this.router.navigate(["persona","detalle", xpersona])
   }
 
   nuevo() {
-    this.router.navigate(["detalle", "0"])
+    this.router.navigate(["persona","alta"])
   }
 
   eliminar(xpersona: string) {

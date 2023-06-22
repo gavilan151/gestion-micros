@@ -12,22 +12,28 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class DetalleComponent implements OnInit {
   personaSeleccionada: persona | null = null;
   tiles: any[] = [];
-  form: FormGroup;
+
+  form: FormGroup = this.fb.group({
+    id: ['', [Validators.required, Validators.maxLength(10)]],
+    nombre: ['', Validators.required],
+    apellido: ['', Validators.required],
+    edad: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern('^[0-9]*$'),
+        Validators.min(0),
+        Validators.max(110),
+      ],
+    ],
+  });
 
   constructor(
     private personaService: PersonaService,
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder
-  ) {
-    this.form = this.fb.group({
-      id: ['', Validators.required],
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      edad: ['', Validators.required],
-    });
-
-  }
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
@@ -42,30 +48,36 @@ export class DetalleComponent implements OnInit {
   findPerson(id: number) {
     this.personaService.findOne(id).subscribe((res) => {
       this.personaSeleccionada = res;
+      //agrega los datos para poder ser previsualizados en los campos del formulario
+      this.form.patchValue({
+        id: this.personaSeleccionada.id,
+        nombre: this.personaSeleccionada.nombre,
+        apellido: this.personaSeleccionada.apellido,
+        edad: this.personaSeleccionada.edad,
+      });
     });
   }
 
- cargar(){
-  this.form = this.fb.group({
-    id: ['aa', Validators.required],
-    nombre: ['aa', Validators.required],
-    apellido: ['aa', Validators.required],
-    edad: ['a', Validators.required],
-  });
- }
+  guardarCambios() {
+    if (this.personaSeleccionada && this.personaSeleccionada.id) {
+      // LLamar al metodo actualizar
+      console.log('Actualizando una persona');
+      
+    } else {
+      // Llamar al metodo crear
+      console.log('Creando una persona');
+      const cPersona: persona = {
+        id: this.form.value.id,
+        nombre: this.form.value.nombre,
+        apellido: this.form.value.apellido,
+        edad: this.form.value.edad,
+      };
+      this.personaService.agregar(cPersona);
+    }
 
-  agregar() {
-    console.log(this.form);
-
-    const cPersona: persona = {
-      id: this.form.value.id,
-      nombre: this.form.value.nombre,
-      apellido: this.form.value.apellido,
-      edad: this.form.value.edad,
-    };
-    this.personaService.agregar(cPersona);
-    this.router.navigate(["persona","listado"])
+    this.router.navigate(['persona', 'listado']);
   }
+
   volverAtras() {
     this.router.navigate(['persona', 'listado']);
   }

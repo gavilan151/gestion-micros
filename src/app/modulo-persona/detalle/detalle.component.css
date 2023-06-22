@@ -29,3 +29,10 @@
 .grid{
   margin-top: 2px;
 }
+
+.error {
+  color:#B0304B;
+  margin-top: -10px;
+  font-size: xx-small;
+}
+
