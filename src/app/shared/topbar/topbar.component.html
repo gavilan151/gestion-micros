@@ -1,31 +1,37 @@
-
 <mat-toolbar color="primary">
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+
+  <button    mat-icon-button  [matMenuTriggerFor]="menu"   aria-label="Example icon-button with a menu" >
     <mat-icon>more_vert</mat-icon>
   </button>
+
   <span>Gestion de Colectivos</span>
   <span class="spacer"></span>
-  <button mat-icon-button class="button-logout" aria-label="Example icon-button with heart icon">
-    <mat-icon>logout</mat-icon>
+  <button  mat-mini-fab color="primary">
+    <img class="botonBus" src="./assets/bus32.png" />
+
   </button>
+
+  <!-- <button mat-icon-button class="button-logout">
+    <img src="./assets/bus2.png" />
+  </button> -->
 </mat-toolbar>
 
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="irALista()">
-      <mat-icon>supervisor_account</mat-icon>
-      <span>Personas</span>
-    </button>
-    <button mat-menu-item >
-      <mat-icon> directions_bus</mat-icon>
-      <span>Colectivos</span>
-    </button>
-    <button mat-menu-item>
-      <mat-icon>repeat_one</mat-icon>
-      <span>Viajes</span>
-    </button>
-  </mat-menu>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="irALista()">
+    <mat-icon>supervisor_account</mat-icon>
+    <span>Personas</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon> directions_bus</mat-icon>
+    <span>Colectivos</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>repeat_one</mat-icon>
+    <span>Viajes</span>
+  </button>
+</mat-menu>
 
- <!-- <mat-toolbar color="primary" >
+<!-- <mat-toolbar color="primary" >
     <button mat-icon-button class="button-menu" (click)="onClick()" aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
