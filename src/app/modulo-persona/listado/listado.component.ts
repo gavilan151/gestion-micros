@@ -74,7 +74,9 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     this.router.navigate(["persona","alta"])
   }
 
-  eliminar(xpersona: string) {
+  eliminar(xid: number) {
+    console.log(xid)
+    this.personaService.eliminar(xid)
 
   }
 
@@ -89,7 +91,6 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
 
 }
 

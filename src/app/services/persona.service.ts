@@ -53,4 +53,12 @@ export class PersonaService {
   agregar(datosPersona: persona){
     this.personaList.unshift(datosPersona);
   }
+
+  eliminar(id: number) {
+    console.log(id)
+    this.personaList.splice(id,1);
+    console.log( this.personaList);
+  }
+
+
 }

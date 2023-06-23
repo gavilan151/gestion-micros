@@ -8,11 +8,12 @@ import { DetalleComponent } from '../modulo-persona/detalle/detalle.component';
 const routes: Routes = [
   {path:"", redirectTo: "inicio",pathMatch:"full"},
   {path:"inicio", component:InicioComponent},
-  {path:"persona/listado", component:ListadoComponent},
-  {path:"persona/alta", component:DetalleComponent},
-  {path:"persona/detalle/:id", component:DetalleComponent},
+  // {path:"listado", component:ListadoComponent},
+  // {path:"alta", component:DetalleComponent},
+  // {path:"persona/detalle/:id", component:DetalleComponent},
 
-  {path:'persona', loadChildren:()=> import('./../modulo-persona/modulo-persona.module').then(mod=> mod.ModuloPersonaModule)}
+
+
 ];
 
 @NgModule({
