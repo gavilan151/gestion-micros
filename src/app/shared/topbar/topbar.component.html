@@ -8,11 +8,13 @@
   <span class="spacer"></span>
 
   <!-- Boton del logo / vuelve a la pagina principal -->
-  <button  routerLink="/inicio"  mat-mini-fab color="primary">
+ <button (click)="irPaginaInicio()"  mat-mini-fab color="primary">
+   <img class="botonBus" src="./assets/bus32.png" />
+ </button>
+ <!--  OTRA FORMA DE HACER LO MISMO
+    <button  routerLink="/inicio"  mat-mini-fab color="primary">
     <img class="botonBus" src="./assets/bus32.png" />
-  </button>
- <!-- <button (click)="irPaginaInicio" mat-mini-fab color="primary"> -->
-
+  </button> -->
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
