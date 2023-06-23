@@ -6,18 +6,17 @@
 
   <span>Gestion de Colectivos</span>
   <span class="spacer"></span>
-  <button  mat-mini-fab color="primary">
+
+  <!-- Boton del logo / vuelve a la pagina principal -->
+  <button  routerLink="/inicio"  mat-mini-fab color="primary">
     <img class="botonBus" src="./assets/bus32.png" />
-
   </button>
+ <!-- <button (click)="irPaginaInicio" mat-mini-fab color="primary"> -->
 
-  <!-- <button mat-icon-button class="button-logout">
-    <img src="./assets/bus2.png" />
-  </button> -->
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="irALista()">
+  <button mat-menu-item (click)="irPersonaLista()">
     <mat-icon>supervisor_account</mat-icon>
     <span>Personas</span>
   </button>

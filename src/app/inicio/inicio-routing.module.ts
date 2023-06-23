@@ -1,8 +1,9 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DetalleComponent } from './detalle/detalle.component';
-import { ListadoComponent } from './listado/listado.component';
 import { InicioComponent } from '../inicio/inicio/inicio.component';
+import { ListadoComponent } from '../modulo-persona/listado/listado.component';
+import { DetalleComponent } from '../modulo-persona/detalle/detalle.component';
 
 const routes: Routes = [
   {path:"", redirectTo: "inicio",pathMatch:"full"},
@@ -11,15 +12,11 @@ const routes: Routes = [
   {path:"persona/alta", component:DetalleComponent},
   {path:"persona/detalle/:id", component:DetalleComponent},
 
-  {path:'persona', loadChildren:()=> import('./modulo-persona.module').then(mod=> mod.ModuloPersonaModule)}
-
-
+  {path:'persona', loadChildren:()=> import('./../modulo-persona/modulo-persona.module').then(mod=> mod.ModuloPersonaModule)}
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-
-
-export class ModuloPersonaRoutingModule { }
+export class InicioRoutingModule { }

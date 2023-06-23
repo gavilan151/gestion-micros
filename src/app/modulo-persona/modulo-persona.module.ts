@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DetalleComponent } from './detalle/detalle.component';
 import { ListadoComponent } from './listado/listado.component';
+
 import { ModuloPersonaRoutingModule } from './modulo-persona-routing.module';
 
 //Angular material
