@@ -62,7 +62,7 @@ export class DetalleComponent implements OnInit {
     if (this.personaSeleccionada && this.personaSeleccionada.id) {
       // LLamar al metodo actualizar
       console.log('Actualizando una persona');
-      
+
     } else {
       // Llamar al metodo crear
       console.log('Creando una persona');

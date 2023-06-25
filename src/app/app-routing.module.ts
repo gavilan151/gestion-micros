@@ -12,27 +12,10 @@ const routes: Routes = [
     {path:'imicio', loadChildren:()=> import('./inicio/inicio.module').then(mod=> mod.InicioModule)}
   ]
 },
-{path:'persona', loadChildren:()=> import('./modulo-persona/modulo-persona.module').then(mod=> mod.ModuloPersonaModule)}
+{path:'persona', loadChildren:()=> import('./modulo-persona/modulo-persona.module').then(mod=> mod.ModuloPersonaModule)},
+{path:'micro', loadChildren:()=> import('./modulo-micros/modulo-micros.module').then(mod=> mod.ModuloMicrosModule)}
 ]
 
-// const routes: Routes = [
-//   {path: '', redirectTo: 'layout', pathMatch: 'full'},
-//   // {path: 'List', component: PersonListComponent},
-//   // {path: 'detail', component: PersonDetailComponent}
-//   { path: 'person', loadChildren: () =>
-//       import('./modulo-persona/modulo-persona.module').then(mod => mod.ModuloPersonaModule)},
-//   {
-//     path: '',
-//     component: AdminLayoutComponent,
-//     children: [
-//       {
-//         path: 'layout',
-//         loadChildren: () =>
-//           import('./modulo-persona/modulo-persona.module').then(mod => mod.ModuloPersonaModule)
-//       }
-//     ]
-//   }
-// ]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {useHash: true})],
