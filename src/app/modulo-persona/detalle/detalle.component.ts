@@ -17,9 +17,7 @@ export class DetalleComponent implements OnInit {
     id: ['', [Validators.required, Validators.maxLength(10)]],
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
-    edad: [
-      '',
-      [
+    edad: ['', [
         Validators.required,
         Validators.pattern('^[0-9]*$'),
         Validators.min(0),
@@ -63,6 +61,7 @@ export class DetalleComponent implements OnInit {
       // LLamar al metodo actualizar
       console.log('Actualizando una persona');
 
+      
     } else {
       // Llamar al metodo crear
       console.log('Creando una persona');

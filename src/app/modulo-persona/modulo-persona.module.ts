@@ -11,23 +11,8 @@ import { ListadoComponent } from './listado/listado.component';
 import { ModuloPersonaRoutingModule } from './modulo-persona-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
-
-
-//Angular material
-//import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-// import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-// import { MatTableDataSource } from '@angular/material/table';
-// import { MatInputModule } from '@angular/material/input';
-// import { MatFormFieldModule } from '@angular/material/form-field';
-// import { MatSort, MatSortModule, SortDirection } from '@angular/material/sort';
-// import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-// import { MatCardModule } from '@angular/material/card';
-// import { MatIconModule } from '@angular/material/icon';
-// import { MatTooltipModule } from '@angular/material/tooltip';
-// import { MatToolbarModule } from '@angular/material/toolbar';
-// import { MatGridListModule } from '@angular/material/grid-list';
-// import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [DetalleComponent, ListadoComponent],
@@ -39,28 +24,8 @@ import { MatTableModule } from '@angular/material/table';
     NgFor,
     FormsModule,
     ReactiveFormsModule,
-
     SharedModule,
-
-   // MatButtonModule,
-     MatTableModule,
-
-    // MatFormFieldModule,
-    // MatInputModule,
-    // MatSortModule,
-    // MatPaginatorModule,
-
-    // MatProgressSpinnerModule,
-
-
-    // MatCardModule,
-    // MatIconModule,
-    // MatTooltipModule,
-    // MatToolbarModule,
-    // MatGridListModule,
-
-
-    // MatDialogModule
+    MatTableModule,
   ],
   exports: [
     DetalleComponent,

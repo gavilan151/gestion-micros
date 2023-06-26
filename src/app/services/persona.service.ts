@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { persona } from '../models/persona';
 import { Observable, of, catchError, throwError, mergeMap, first } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PersonaService {
-  constructor() {}
+  constructor(
+    private http: HttpClient
+  ) {}
 
   personaList: persona[] = [
     new persona(1, 30, 'Claudia', 'Flosi'),
@@ -58,6 +61,7 @@ export class PersonaService {
     console.log(id)
     this.personaList.splice(id,1);
     console.log( this.personaList);
+
   }
 
 

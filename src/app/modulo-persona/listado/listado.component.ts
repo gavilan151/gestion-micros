@@ -7,10 +7,11 @@ import { ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { persona } from 'src/app/models/persona';
 import { PersonaService } from 'src/app/services/persona.service';
+
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 
 
 
@@ -30,7 +31,9 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog
-  ) { }
+  ) {
+    this.dataSource = new MatTableDataSource(this.personaList);
+   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(DetalleComponent, {
@@ -49,12 +52,14 @@ export class ListadoComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.obtenerPersonas();
-    this.dataSource = new MatTableDataSource(this.personaList);
   }
 
   obtenerPersonas() {
     this.personaService.findAll().subscribe(res => {
       this.personaList = res;
+      this.dataSource.data = res;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     }, error => {
       console.log("Ocurrio un error");
     });
@@ -77,7 +82,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   eliminar(xid: number) {
     console.log(xid)
     this.personaService.eliminar(xid)
-
+      this.obtenerPersonas();
   }
 
   ngAfterViewInit() {
