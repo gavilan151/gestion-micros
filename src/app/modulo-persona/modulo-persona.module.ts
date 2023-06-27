@@ -26,6 +26,7 @@ import { MatTableModule } from '@angular/material/table';
     ReactiveFormsModule,
     SharedModule,
     MatTableModule,
+
   ],
   exports: [
     DetalleComponent,

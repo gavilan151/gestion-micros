@@ -26,7 +26,6 @@ export class ListadoComponent implements OnInit, AfterViewInit {
 
   constructor(
     private microService: MicroService,
-    private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog
   ) { }
@@ -39,7 +38,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  displayedColumns: string[] = ['id', 'patente', 'asientos', 'modeloNombre', 'modeloMarca', "bm"];
+  displayedColumns: string[] = ['patente', 'asientos', 'modeloNombre', 'modeloMarca', "bm"];
   clickedRows = new Set<Micro>();
   dataSource!: MatTableDataSource<any>;
 

@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {MatDialog} from '@angular/material/dialog';
-
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -28,9 +28,8 @@ export class ListadoComponent implements OnInit, AfterViewInit {
 
   constructor(
     private personaService: PersonaService,
-    private route: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,private matSnackBar: MatSnackBar,
   ) {
     this.dataSource = new MatTableDataSource(this.personaList);
    }
@@ -43,7 +42,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  displayedColumns: string[] = ['id', 'nombre', 'apellido', 'edad', "bm"];
+  displayedColumns: string[] = ['nombre', 'apellido', 'edad', "bm"];
   clickedRows = new Set<persona>();
   dataSource!: MatTableDataSource<any>;
 
@@ -56,14 +55,14 @@ export class ListadoComponent implements OnInit, AfterViewInit {
 
   obtenerPersonas() {
     this.personaService.findAll().subscribe(res => {
-      this.personaList = res;
-      this.dataSource.data = res;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      if (res.body)
+        this.personaList = res.body.map(json => new persona(json.id, json.age, json.name, json.lastName)); //como estan en la tabla de la base de datos
+        this.dataSource.data = this.personaList ;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     }, error => {
-      console.log("Ocurrio un error");
+      console.log("Ocurrio un error, Imposible!");
     });
-
   }
 
   seleccionarPersona(xpersona: persona) {
@@ -79,10 +78,14 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     this.router.navigate(["persona","alta"])
   }
 
-  eliminar(xid: number) {
-    console.log(xid)
-    this.personaService.eliminar(xid)
+  eliminar(id: number) {
+    this.personaService.eliminar(id).subscribe(res => {
+      this.matSnackBar.open("El registro fue borrado correctamente", "Cerrar", {duration: 3000});
       this.obtenerPersonas();
+    }, error => {
+      console.log(error);
+      this.matSnackBar.open(error, "Cerrar");
+    });
   }
 
   ngAfterViewInit() {

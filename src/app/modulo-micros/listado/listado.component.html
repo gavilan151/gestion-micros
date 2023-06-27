@@ -2,11 +2,11 @@
 
 
 <mat-toolbar class="toolbar">
-  <img src="./assets/bus-80.png" alt="" width="120" height="110"/>
-  <span class="contenedor">Listado de Micros</span>
+  <img class="contenedor"  src="./assets/bus-80.png" alt="" width="130" height="120"/>
+  <span >Listado de Micros      </span>
   <span class="alta"></span>
   <div>
-    <button (click)="nuevo()" #tooltip="matTooltip" matTooltip="Alta de Micros" mat-mini-fab color="primary">
+    <button  (click)="nuevo()" #tooltip="matTooltip" matTooltip="Alta de Micros" mat-mini-fab color="primary">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -25,7 +25,9 @@
 
 
     <div class="contenedor">
+
       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 demo-table">
+
         Id Column
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef class="headerCentrada">Id</th>

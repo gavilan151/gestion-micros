@@ -1,8 +1,10 @@
-import { PersonaService } from 'src/app/services/persona.service';
+import { PersonaService,PersonaData, } from 'src/app/services/persona.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { persona } from 'src/app/models/persona';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from "@angular/material/snack-bar";
+
 
 @Component({
   selector: 'app-detalle',
@@ -14,24 +16,26 @@ export class DetalleComponent implements OnInit {
   tiles: any[] = [];
 
   form: FormGroup = this.fb.group({
-    id: ['', [Validators.required, Validators.maxLength(10)]],
+    id: ['', []],
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
     edad: ['', [
-        Validators.required,
-        Validators.pattern('^[0-9]*$'),
-        Validators.min(0),
-        Validators.max(110),
-      ],
+      Validators.required,
+      Validators.pattern('^[0-9]*$'),
+      Validators.min(0),
+      Validators.max(110),
+    ],
     ],
   });
+
 
   constructor(
     private personaService: PersonaService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private matSnackBar: MatSnackBar,
+  ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
@@ -43,39 +47,64 @@ export class DetalleComponent implements OnInit {
     });
   }
 
+
   findPerson(id: number) {
-    this.personaService.findOne(id).subscribe((res) => {
-      this.personaSeleccionada = res;
-      //agrega los datos para poder ser previsualizados en los campos del formulario
-      this.form.patchValue({
-        id: this.personaSeleccionada.id,
-        nombre: this.personaSeleccionada.nombre,
-        apellido: this.personaSeleccionada.apellido,
-        edad: this.personaSeleccionada.edad,
-      });
-    });
+    this.personaService.findOne(id).subscribe(res => {
+      if (res.body) {
+        this.personaSeleccionada = new persona(res.body.id, res.body.age, res.body.name, res.body.lastName);
+
+        this.form.patchValue({
+          id: this.personaSeleccionada.id,
+          nombre: this.personaSeleccionada.nombre,
+          apellido: this.personaSeleccionada.apellido,
+          edad: this.personaSeleccionada.edad,
+        })
+      }
+    }, error => {
+      console.log(error);
+      this.matSnackBar.open(error, "Cerrar", {duration: 3000});
+      this.router.navigate(['persona', 'listado']);
+    })
   }
+
+
 
   guardarCambios() {
-    if (this.personaSeleccionada && this.personaSeleccionada.id) {
-      // LLamar al metodo actualizar
-      console.log('Actualizando una persona');
 
-      
-    } else {
-      // Llamar al metodo crear
-      console.log('Creando una persona');
-      const cPersona: persona = {
-        id: this.form.value.id,
-        nombre: this.form.value.nombre,
-        apellido: this.form.value.apellido,
-        edad: this.form.value.edad,
-      };
-      this.personaService.agregar(cPersona);
+    const body: PersonaData = {
+      id: this.form.value.id,
+      name: this.form.value.nombre,
+      lastName: this.form.value.apellido,
+      age: this.form.value.edad
     }
 
-    this.router.navigate(['persona', 'listado']);
-  }
+    if (this.personaSeleccionada && this.personaSeleccionada.id) {
+
+      // LLamar al metodo actualizar
+      body.id = this.personaSeleccionada.id;
+
+      this.personaService.actualizar(body).subscribe(res => {
+        this.matSnackBar.open("Se guardaron los cambios correctamente", "Cerrar", {duration: 3000} );
+
+      }, error => {
+        console.log(error);
+        this.matSnackBar.open(error, "Cerrar");
+      });
+
+    } else {
+      // Llamar al metodo crear
+      this.personaService.agregar(body).subscribe(res => {
+        this.matSnackBar.open("Se efectuo el alta correctamente", "Cerrar", {duration: 3000});
+
+      }, error => {
+        console.log(error);
+        this.matSnackBar.open(error, "Cerrar");
+      });
+      };
+      this.router.navigate(['persona', 'listado']);
+    }
+
+
 
   volverAtras() {
     this.router.navigate(['persona', 'listado']);

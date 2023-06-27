@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -28,14 +29,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
   declarations: [TopbarComponent, SidebarComponent],
   imports: [
-
-
-
     CommonModule,
     MatToolbarModule,
     MatIconModule,
@@ -46,9 +45,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatMenuModule,
     RouterModule,
 
-//    MatTableModule
-
-MatTableModule,
+    MatTableModule,
     MatFormFieldModule,
     MatInputModule,
     MatSortModule,
@@ -59,8 +56,8 @@ MatTableModule,
     MatTooltipModule,
     MatToolbarModule,
     MatGridListModule,
-    MatDialogModule
-
+    MatDialogModule,
+    MatSnackBarModule,
   ],
   exports: [
     TopbarComponent, SidebarComponent,
@@ -71,7 +68,6 @@ MatTableModule,
     MatLegacyListModule,
     MatSidenavModule,
     MatMenuModule,
-
     MatFormFieldModule,
     MatInputModule,
     MatSortModule,
@@ -82,8 +78,8 @@ MatTableModule,
     MatTooltipModule,
     MatToolbarModule,
     MatGridListModule,
-    MatDialogModule
-
+    MatDialogModule,
+    MatSnackBarModule,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

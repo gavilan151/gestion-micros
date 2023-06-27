@@ -7,8 +7,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .toolbar{
   margin-bottom: 5px;
-
 }
 .contenedor {
-  margin: 0 20%;
+  margin-top: 15%;
+  margin: 0 16%;
+
+}
+.titulo {
+  margin: 0 5%;
+}
+.alta {
+  cursor: pointer;
+  margin:  13%;
+
+}
+.disabled{
+  cursor:no-drop ;
+
 }
