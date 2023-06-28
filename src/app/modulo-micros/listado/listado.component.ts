@@ -12,6 +12,7 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DetalleComponent } from '../detalle/detalle.component';
 import { Micro } from 'src/app/models/micro';
 import { MicroService } from 'src/app/services/micro.service';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-listado',
@@ -27,7 +28,8 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   constructor(
     private microService: MicroService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private matSnackBar: MatSnackBar,
   ) { }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -46,19 +48,20 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit() {
-    console.log( this.microList);
     this.obtenerMicro();
     this.dataSource = new MatTableDataSource(this.microList);
   }
 
   obtenerMicro() {
     this.microService.findAll().subscribe(res => {
-      this.microList = res;
-      console.log( this.microList);
+      if (res.body)
+        this.microList = res.body.map(json => new Micro(json.id, json.cantidad_asientos, json.id_modelo, json.patente,json.modelo_id_id)); //como estan en la tabla de la base de datos
+        this.dataSource.data = this.microList ;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     }, error => {
-      console.log("Ocurrio un error");
+      console.log("Ocurrio un error, Imposible!");
     });
-
   }
 
   seleccionarMicro(xmicro: Micro) {

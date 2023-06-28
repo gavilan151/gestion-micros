@@ -40,7 +40,6 @@ export class DetalleComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
-      console.log('El id es: ' + id);
       if (id) {
         this.findPerson(Number.parseInt(id));
       }

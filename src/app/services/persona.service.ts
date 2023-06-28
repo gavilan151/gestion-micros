@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { persona } from '../models/persona';
 import { Observable, of, catchError, throwError, mergeMap, first } from 'rxjs';
-import { HttpClient,HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PersonaService {
-  constructor(  private http: HttpClient ) {}
+  constructor(private http: HttpClient) { }
 
   resourceUrl = environment.backendUrl + "personas"
 
@@ -22,12 +22,12 @@ export class PersonaService {
 
   findAll(): Observable<HttpResponse<any[]>> {
 
-    return this.http.get<any[]>(this.resourceUrl, {observe: "response"}).pipe(
+    return this.http.get<any[]>(this.resourceUrl, { observe: "response" }).pipe(
       catchError(err => {
-            console.log("Ocurrio un error");
-            return throwError(() => "Paso algo");
-          }),
-      );
+        console.log("Ocurrio un error");
+        return throwError(() => "Paso algo");
+      }),
+    );
     // return of(this.personaList).pipe(
     //   catchError((err) => {
     //     console.log('Ocurrio un Error');
@@ -37,18 +37,13 @@ export class PersonaService {
   }
 
   findOne(id: number): Observable<HttpResponse<any>> {
-    return this.http.get<any>( this.resourceUrl + '/' + id, {observe: "response"}).pipe(
+    return this.http.get<any>(this.resourceUrl + '/' + id, { observe: "response" }).pipe(
       catchError(err => {
         console.log("Ocurrio un error: ");
         console.log(err);
         return throwError(() => "No existe la persona");
       }),
-  );
-
-    // return of(this.personaList).pipe(
-    //   mergeMap((p) => p),
-    //   first(persona => persona.id === id)
-    // );
+    );
   }
 
 
@@ -75,7 +70,7 @@ export class PersonaService {
 
 
   eliminar(id: number): Observable<HttpResponse<any>> {
-    return this.http.delete<any>( this.resourceUrl + '/' + id, {observe: "response"}).pipe(
+    return this.http.delete<any>(this.resourceUrl + '/' + id, { observe: "response" }).pipe(
       catchError(err => {
         console.log("Ocurrio un error: ");
         console.log(err);

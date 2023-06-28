@@ -29,7 +29,8 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   constructor(
     private personaService: PersonaService,
     private router: Router,
-    public dialog: MatDialog,private matSnackBar: MatSnackBar,
+    public dialog: MatDialog,
+    private matSnackBar: MatSnackBar,
   ) {
     this.dataSource = new MatTableDataSource(this.personaList);
    }

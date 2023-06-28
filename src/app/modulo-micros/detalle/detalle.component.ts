@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { Micro } from 'src/app/models/micro';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MicroService } from 'src/app/services/micro.service';
+import { MicroService,MicroData } from 'src/app/services/micro.service';
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 
 @Component({
@@ -17,47 +17,49 @@ export class DetalleComponent implements OnInit {
   tiles: any[] = [];
 
   form: FormGroup = this.fb.group({
-
-
-
     id: ['', [Validators.required, Validators.maxLength(10)]],
     patente: ['', Validators.required],
     asientos: [ '', [ Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(20), Validators.max(58),],    ],
     modeloNombre: ['', Validators.required],
     modeloMarca: ['', Validators.required],
-
   });
 
   constructor(
     private microService: MicroService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private matSnackBar: MatSnackBar,
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
-      console.log('El id es: ' + id);
       if (id) {
-        this.findPerson(Number.parseInt(id));
+        this.findMicro(Number.parseInt(id));
       }
     });
   }
 
-  findPerson(id: number) {
-    this.microService.findOne(id).subscribe((res) => {
-      this.microSeleccionado = res;
-      //agrega los datos para poder ser previsualizados en los campos del formulario
-      this.form.patchValue({
 
-        id: this.microSeleccionado.id,
-        patente: this.microSeleccionado.patente,
-        asientos: this.microSeleccionado.asientos,
-        modeloNombre: this.microSeleccionado.modeloNombre,
-        modeloMarca: this.microSeleccionado.modeloMarca
-      });
-    });
+  findMicro(id: number) {
+    this.microService.findOne(id).subscribe(res => {
+      if (res.body) {
+        this.microSeleccionado = new Micro(res.body.id, res.body.cantidad_asientos, res.body.id_modelo, res.body.patente, res.body.modelo_id_id);
+
+          this.form.patchValue({
+          id: this.microSeleccionado.id,
+          nombre: this.microSeleccionado.patente,
+          apellido: this.microSeleccionado.asientos,
+          edad: this.microSeleccionado.modeloNombre,
+          modeloMarca: this.microSeleccionado.modeloMarca,
+        })
+      }
+    }, error => {
+      console.log(error);
+      this.matSnackBar.open(error, "Cerrar", {duration: 3000});
+      this.router.navigate(['persona', 'listado']);
+    })
   }
 
   guardarCambios() {
