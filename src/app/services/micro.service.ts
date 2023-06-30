@@ -13,13 +13,7 @@ export class MicroService {
 
   resourceUrl = environment.backendUrl + "colectivos"
 
-  microList: Micro[] = [
-    new Micro(1, "AD-400-AA", 50, "0500RS", 'Mercedes-Benz1'),
-    new Micro(2, "AF-340-AD", 45, "0500RS2", 'Mercedes-Benz2'),
-    new Micro(3, "DD-942-AA", 50, "K-400 Metalsur", "Scania1"),
-    new Micro(4, "AD-335-AA", 58, "0500RS3", 'Mercedes-Benz3'),
-    new Micro(5, "FD-975-AA", 45, "K-400 Metalsur1", "Scania2"),
-  ];
+  microList: Micro[] = [  ];
 
 
 
@@ -32,6 +26,8 @@ export class MicroService {
       }),
     );
   }
+
+
 
 
   findOne(id: number): Observable<HttpResponse<any>> {
@@ -59,8 +55,9 @@ export class MicroService {
 
 export interface MicroData {
   id: number,
-  cantidad_asientos: number,
-  id_modelo: number,
+  cantidadAsientos: number,
   patente: string,
-  modelo_id_id: number
+  modeloId: number
+
 }
+

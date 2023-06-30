@@ -33,6 +33,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     private matSnackBar: MatSnackBar,
   ) {
     this.dataSource = new MatTableDataSource(this.personaList);
+    this.obtenerPersonas();
    }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {

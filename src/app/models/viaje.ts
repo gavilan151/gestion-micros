@@ -1,24 +1,21 @@
-export class Viaje {
+import { Micro } from "./micro";
+
+export class Trip {
   id: number;
   lugarSalida: string;
   lugarDestino: string;
-  colectivo: string;
-  fechaSalida: string;
-  horaSalida: string;
-  fechaLLegada: string;
-  horaLLegada: string;
-  listaPasajeros: [];
+  fechaLlegada: Date;
+  fechaSalida: Date;
+  personaId: number[] | undefined;
+  idColectivo: number;
+  colectivo!: Micro;
 
-  constructor(id:number, lugarSalida:string, lugarDestino:string, colectivo:string, fechaSalida:string,
-    horaSalida:string, fechaLLegada:string, horaLLegada:string, listaPasajeros:[]) {
+  constructor(id: number, lugarSalida: string, lugarDestino: string, fechaLlegada: string, fechaSalida: string, idColectivo: number) {
     this.id = id;
     this.lugarSalida = lugarSalida;
     this.lugarDestino = lugarDestino;
-    this.colectivo = colectivo;
-    this.fechaSalida = fechaSalida;
-    this.horaSalida = horaSalida;
-    this.fechaLLegada = fechaLLegada;
-    this.horaLLegada = horaLLegada;
-    this.listaPasajeros = listaPasajeros;
+    this.fechaLlegada = new Date(fechaLlegada);
+    this.fechaSalida = new Date(fechaSalida);
+    this.idColectivo = idColectivo;
   }
 }

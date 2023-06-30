@@ -1,4 +1,4 @@
 export const environment = {
-  //backendUrl: "http://cursoangular.unrn.edu.ar:3000/"
-  backendUrl: "http://localhost:8080/api/"
+    backendUrl: "https://k8s-lia.unrn.edu.ar/api/api/"
+//  backendUrl: "http://localhost:8080/api/"
 };

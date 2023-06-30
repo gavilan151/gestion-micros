@@ -45,14 +45,13 @@ export class DetalleComponent implements OnInit {
   findMicro(id: number) {
     this.microService.findOne(id).subscribe(res => {
       if (res.body) {
-        this.microSeleccionado = new Micro(res.body.id, res.body.cantidad_asientos, res.body.id_modelo, res.body.patente, res.body.modelo_id_id);
+        this.microSeleccionado = new Micro(res.body.id, res.body.cantidad_asientos, res.body.patente, res.body.modelo_id_id);
 
           this.form.patchValue({
           id: this.microSeleccionado.id,
-          nombre: this.microSeleccionado.patente,
-          apellido: this.microSeleccionado.asientos,
-          edad: this.microSeleccionado.modeloNombre,
-          modeloMarca: this.microSeleccionado.modeloMarca,
+          patente: this.microSeleccionado.patente,
+          asientos: this.microSeleccionado.asientos,
+
         })
       }
     }, error => {
@@ -70,15 +69,7 @@ export class DetalleComponent implements OnInit {
     } else {
       // Llamar al metodo crear
       console.log('Creando una persona');
-      const cPersona: Micro = {
-        id: this.form.value.id,
-        patente: this.form.value.patente,
-        asientos: this.form.value.asientos,
-        modeloNombre: this.form.value.modeloNombre,
-        modeloMarca: this.form.value.modeloMarca,
-
-      };
-      this.microService.agregar(cPersona);
+    
     }
 
     this.router.navigate(['micro', 'listado']);
