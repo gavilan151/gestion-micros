@@ -29,9 +29,9 @@
         <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#F9FBFD'">
           <mat-form-field class="ancho">
             <mat-label>Asientos</mat-label>
-            <input matInput formControlName="asientos" />
-            <div class="error" *ngIf="form.get('edad')?.hasError('pattern') || form.get('edad')?.hasError('min') || form.get('edad')?.hasError('max')">
-              Solo umeros, cantidad de asientos entre 20 y 58
+            <input matInput formControlName="cantidadAsientos" />
+            <div class="error" *ngIf="form.get('cantidadAsientos')?.hasError('pattern') || form.get('cantidadAsientos')?.hasError('min') || form.get('cantidadAsientos')?.hasError('max')">
+             cantidad de asientos entre 20 y 58
           </div>
           </mat-form-field>
         </mat-grid-tile>

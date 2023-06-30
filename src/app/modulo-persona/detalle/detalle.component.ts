@@ -1,4 +1,4 @@
-import { PersonaService,PersonaData, } from 'src/app/services/persona.service';
+import { PersonaService, PersonaData, } from 'src/app/services/persona.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { persona } from 'src/app/models/persona';
@@ -16,7 +16,7 @@ export class DetalleComponent implements OnInit {
   tiles: any[] = [];
 
   form: FormGroup = this.fb.group({
-    id: ['', []],
+   // id: ['', []],
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
     edad: ['', [
@@ -61,7 +61,7 @@ export class DetalleComponent implements OnInit {
       }
     }, error => {
       console.log(error);
-      this.matSnackBar.open(error, "Cerrar", {duration: 3000});
+      this.matSnackBar.open(error, "Cerrar", { duration: 3000 });
       this.router.navigate(['persona', 'listado']);
     })
   }
@@ -83,25 +83,26 @@ export class DetalleComponent implements OnInit {
       body.id = this.personaSeleccionada.id;
 
       this.personaService.actualizar(body).subscribe(res => {
-        this.matSnackBar.open("Se guardaron los cambios correctamente", "Cerrar", {duration: 3000} );
+        this.matSnackBar.open("Se guardaron los cambios correctamente", "Cerrar", { duration: 3000 });
 
       }, error => {
         console.log(error);
+        console.log(body);
         this.matSnackBar.open(error, "Cerrar");
       });
 
     } else {
       // Llamar al metodo crear
       this.personaService.agregar(body).subscribe(res => {
-        this.matSnackBar.open("Se efectuo el alta correctamente", "Cerrar", {duration: 3000});
+        this.matSnackBar.open("Se efectuo el alta correctamente", "Cerrar", { duration: 3000 });
 
       }, error => {
         console.log(error);
         this.matSnackBar.open(error, "Cerrar");
       });
-      };
-      this.router.navigate(['persona', 'listado']);
-    }
+    };
+    this.router.navigate(['persona', 'listado']);
+  }
 
 
 

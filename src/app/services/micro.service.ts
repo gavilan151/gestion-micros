@@ -11,8 +11,8 @@ export class MicroService {
 
   constructor(private http: HttpClient) { }
 
-  resourceUrl = environment.backendUrl + "colectivos"
-
+  //resourceUrl = environment.backendUrl + "colectivos"
+  resourceUrl = "https://k8s-lia.unrn.edu.ar/api/api/colectivos"
   microList: Micro[] = [  ];
 
 
@@ -42,22 +42,44 @@ export class MicroService {
 
 
 
-  agregar(datos: Micro) {
-    this.microList.unshift(datos);
+  agregar(micro: MicroData): Observable<any> {
+    return this.http.post<any>(this.resourceUrl, micro).pipe(
+      catchError(err => {
+
+        console.log(err);
+        return throwError(() => "No se pudo crear la persona");
+      }),
+    );
   }
 
-  eliminar(id: number) {
-    console.log(id)
-    this.microList.splice(id, 1);
-    console.log(this.microList);
+
+  actualizar(micro: MicroData): Observable<any> {
+    return this.http.put<any>(this.resourceUrl + '/' + micro.id, micro).pipe(
+      catchError(err => {
+        console.log("Ocurrio un error: ");
+        console.log(err);
+        return throwError(() => "No existe la persona");
+      }),
+    );
+  }
+
+
+  eliminar(id: number): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(this.resourceUrl + '/' + id, { observe: "response" }).pipe(
+      catchError(err => {
+        console.log("Ocurrio un error: ");
+        console.log(err);
+        return throwError(() => "No existe la persona");
+      }),
+    );
   }
 }
 
 export interface MicroData {
   id: number,
-  cantidadAsientos: number,
   patente: string,
-  modeloId: number
+  cantidadAsientos: number,
+  modeloId: number,
 
 }
 

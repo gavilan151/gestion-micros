@@ -17,9 +17,9 @@ export class DetalleComponent implements OnInit {
   tiles: any[] = [];
 
   form: FormGroup = this.fb.group({
-    id: ['', [Validators.required, Validators.maxLength(10)]],
+    //id: ['', [Validators.required, Validators.maxLength(10)]],
     patente: ['', Validators.required],
-    asientos: [ '', [ Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(20), Validators.max(58),],    ],
+    cantidadAsientos: [ '', [ Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(20), Validators.max(58),],    ],
     modeloNombre: ['', Validators.required],
     modeloMarca: ['', Validators.required],
   });
@@ -45,13 +45,13 @@ export class DetalleComponent implements OnInit {
   findMicro(id: number) {
     this.microService.findOne(id).subscribe(res => {
       if (res.body) {
-        this.microSeleccionado = new Micro(res.body.id, res.body.cantidad_asientos, res.body.patente, res.body.modelo_id_id);
+        this.microSeleccionado = new Micro(res.body.id, res.body.patente,  res.body.cantidadAsientos, res.body.modeloId);
 
           this.form.patchValue({
           id: this.microSeleccionado.id,
           patente: this.microSeleccionado.patente,
-          asientos: this.microSeleccionado.asientos,
-
+          cantidadAsientos: this.microSeleccionado.cantidadAsientos,
+          modeloId: this.microSeleccionado.modeloId,
         })
       }
     }, error => {
@@ -62,19 +62,40 @@ export class DetalleComponent implements OnInit {
   }
 
   guardarCambios() {
+
+    const body: MicroData = {
+      id: this.form.value.id,
+      cantidadAsientos: this.form.value.cantidadAsientos,
+      patente: this.form.value.patente,
+      modeloId: this.form.value.modeloId
+    }
+
     if (this.microSeleccionado && this.microSeleccionado.id) {
       // LLamar al metodo actualizar
-      console.log('Actualizando una persona');
+      body.id = this.microSeleccionado.id;
+
+      this.microService.actualizar(body).subscribe(res => {
+        this.matSnackBar.open("Se guardaron los cambios correctamente", "Cerrar", { duration: 3000 });
+      }, error => {
+        console.log(error);
+        this.matSnackBar.open(error, "Cerrar");
+      });
 
     } else {
       // Llamar al metodo crear
-      console.log('Creando una persona');
-    
-    }
+      this.microService.agregar(body).subscribe(res => {
+        this.matSnackBar.open("Se efectuo el alta correctamente", "Cerrar", { duration: 3000 });
 
+      }, error => {
+        console.log(error);
+        this.matSnackBar.open(error, "Cerrar");
+      });
+
+    }
     this.router.navigate(['micro', 'listado']);
   }
 
+  
   volverAtras() {
     this.router.navigate(['micro', 'listado']);
   }

@@ -43,7 +43,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  displayedColumns: string[] = ['patente', 'asientos', 'modeloNombre', 'modeloMarca', "bm"];
+  displayedColumns: string[] = ['patente', 'cantidadAsientos', 'modeloNombre', 'modeloMarca', "bm"];
   clickedRows = new Set<Micro>();
  dataSource!: MatTableDataSource<any>;
 
@@ -59,64 +59,36 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   }
 
 
+  // obtenerMicro() {
+  //   this.microService.findAll().subscribe(res => {
+  //     if (res.body)
+  //     this.microList = res.body.map(jason => {
+  //       const micro = new Micro(jason.id, jason.patente, jason.cantidadAsientos, jason.modeloId,);
+  //       this.cargarModelo(micro);
+  //       console.log(res.body)
+  //       this.dataSource.data = this.microList ;
+  //       this.dataSource.paginator = this.paginator;
+  //       this.dataSource.sort = this.sort;
+  //       console.log(this.microList)
+  //       console.log(micro)
+  //       return micro;
+  //     });
+  //   })
+  // }
+
+
   obtenerMicro() {
     this.microService.findAll().subscribe(res => {
       if (res.body)
-      this.microList = res.body.map(res => {
-        const micro = new Micro(res.id, res.patente, res.cantidadAsientos, res.modeloId,);
-        this.cargarModelo(micro);
+        this.microList = res.body.map(json => new Micro(json.id, json.patente, json.cantidadAsientos,json.modeloId)); //como estan en la tabla de la base de datos
 
         this.dataSource.data = this.microList ;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        return micro;
-      });
-    })
+  }, error => {
+      console.log("Ocurrio un error, Imposible!");
+    });
   }
-
-  // obtenerMicro1() {
-  //   this.microService.findAll().subscribe(res => {
-  //     if (res.body)
-  //     this.microList = res.body.map(res => {
-  //       const micro = new Micro(res.id, res.patente, res.cantidadAsientos, res.modeloId,);
-  //       this.cargarModelo(micro);
-
-  //       this.dataSource.data = this.microList ;
-  //       this.dataSource.paginator = this.paginator;
-  //       this.dataSource.sort = this.sort;
-  //       return micro;
-  //     });
-
-  //   })
-  // }
-
-  // obtenerMicro3() {
-  //   this.microService.findAll().subscribe(res => {
-  //     if (res.body)
-  //     this.microList = res.body.map(res => {
-  //       const micro = new Micro(res.id, res.lugarDestino, res.lugarSalida, res.fechaLlegada,);
-  //       this.cargarModelo(micro);
-
-  //       this.dataSource.data = this.microList ;
-  //       this.dataSource.paginator = this.paginator;
-  //       this.dataSource.sort = this.sort;
-  //       return micro;
-  //     });
-
-  //   })
-
-  // }
-  // obtenerMicroOrig() {
-  //   this.microService.findAll().subscribe(res => {
-  //     if (res.body)
-  //       this.microList = res.body.map(json => new Micro(json.id, json.patente, json.cantidadAsientos,json.modeloId)); //como estan en la tabla de la base de datos
-  //       this.dataSource.data = this.microList ;
-  //       this.dataSource.paginator = this.paginator;
-  //       this.dataSource.sort = this.sort;
-  // }, error => {
-  //     console.log("Ocurrio un error, Imposible!");
-  //   });
-  // }
 
   cargarModelo(micro: Micro) {
     this.modeloService.findOne(micro.modeloId).subscribe(res => {
@@ -137,10 +109,14 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     this.router.navigate(["micro","alta"])
   }
 
-  eliminar(xid: number) {
-    console.log(xid)
-    this.microService.eliminar(xid)
-
+  eliminar(id: number) {
+    this.microService.eliminar(id).subscribe(res => {
+      this.matSnackBar.open("El registro fue borrado correctamente", "Cerrar", {duration: 3000});
+      this.obtenerMicro();
+    }, error => {
+      console.log(error);
+      this.matSnackBar.open(error, "Cerrar");
+    });
   }
 
   ngAfterViewInit() {
