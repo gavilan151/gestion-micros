@@ -6,7 +6,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { DatePipe } from '@angular/common';
 
 //Propios
-import { ModuloMicrosRoutingModule } from './modulo-micros-routing.module';
+import { ModuloViajesRoutingModule } from './modulo-viajes-routing.module';
 import { DetalleComponent } from './detalle/detalle.component';
 import { ListadoComponent } from './listado/listado.component';
 import { SharedModule } from '../shared/shared.module';
@@ -14,6 +14,11 @@ import { SharedModule } from '../shared/shared.module';
 //Angular material
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
   ],
   imports: [
     CommonModule,
-    ModuloMicrosRoutingModule,
+    ModuloViajesRoutingModule,
     DatePipe,
     NgIf,
     NgFor,
@@ -31,9 +36,13 @@ import { MatSelectModule } from '@angular/material/select';
     SharedModule,
     MatSelectModule,
     MatTableModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+   MatNativeDateModule
   ],
-  exports: [
+   exports: [
     DetalleComponent,
     ListadoComponent],
 })
-export class ModuloMicrosModule { }
+export class ModuloViajesModule { }

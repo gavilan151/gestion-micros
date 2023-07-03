@@ -27,6 +27,9 @@ export class TopbarComponent {
   irMicroLista(){
     this.router.navigate(["micro","listado"])
   }
+  irViajeLista(){
+    this.router.navigate(["viaje","listado"])
+  }
   irPaginaInicio(){
     this.router.navigate(["/inicio"])    //no me funciona, lo reemplace en el html con   routerLink="/inicio"
 

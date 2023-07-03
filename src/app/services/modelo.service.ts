@@ -13,6 +13,15 @@ export class ModeloService {
 
   resourceUrl = environment.backendUrl + 'modelos'
 
+  findAll(): Observable<HttpResponse<any[]>> {
+    return this.http.get<any[]>(this.resourceUrl, {observe: "response"}).pipe(
+      catchError(error => {
+        console.log(error.message);
+        return throwError(() => "Ocurrio un error");
+      })
+    )
+  }
+
   findOne(id: number): Observable<Modelo> {
     return this.http.get<Modelo>(this.resourceUrl + '/' + id).pipe(
       catchError(err => {
@@ -22,3 +31,5 @@ export class ModeloService {
     );
   }
 }
+
+

@@ -1,17 +1,10 @@
 <mat-toolbar class="toolbar">
-  <span class="contenedor2">Datos de Micros</span>
+  <span class="contenedor2">Datos del Colectivo</span>
 </mat-toolbar>
 <div class="contenedor2">
   <mat-card>
     <form [formGroup]="form" (ngSubmit)="guardarCambios()">
       <mat-grid-list cols="2" rowHeight="57px" class="grid">
-
-        <!-- <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#F9FBFD'">
-          <mat-form-field class="ancho">
-            <mat-label>Id</mat-label>
-            <input class="disabled" matInput formControlName="id"  readonly="disabled"/>
-          </mat-form-field>
-        </mat-grid-tile> -->
 
         <mat-grid-tile [colspan]="1" [rowspan]="4" [style.background]="'F9FBFD'">
           <img src="./assets/bus-80.png" alt="" />
@@ -30,31 +23,38 @@
           <mat-form-field class="ancho">
             <mat-label>Asientos</mat-label>
             <input matInput formControlName="cantidadAsientos" />
-            <div class="error" *ngIf="form.get('cantidadAsientos')?.hasError('pattern') || form.get('cantidadAsientos')?.hasError('min') || form.get('cantidadAsientos')?.hasError('max')">
-             cantidad de asientos entre 20 y 58
-          </div>
+            <div class="error"
+              *ngIf="form.get('cantidadAsientos')?.hasError('pattern') || form.get('cantidadAsientos')?.hasError('min') || form.get('cantidadAsientos')?.hasError('max')">
+              cantidad de asientos entre 20 y 58
+            </div>
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#F9FBFD'">
           <mat-form-field class="ancho">
             <mat-label>Modelo</mat-label>
-            <input matInput formControlName="modeloNombre" />
+            <mat-select formControlName="modelo">
+              <mat-option disabled> -- </mat-option>
+              <mat-option *ngFor="let modelo of modeloList" [value]="modelo.id">
+                {{modelo.nombre}} - {{modelo.marca}}
+              </mat-option>
+            </mat-select>
+
+            <div *ngIf="form.controls['modelo'].invalid &&
+               (form.controls['modelo'].dirty || form.controls['modelo'].touched)">
+              <mat-hint *ngIf!="form.controls['modelo'].errors['modelo']" style="color: red">
+                complete el campo
+              </mat-hint>
+            </div>
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'#F9FBFD'">
-          <mat-form-field class="ancho">
-            <mat-label>Marca</mat-label>
-            <input matInput formControlName="modeloMarca" />
-          </mat-form-field>
-        </mat-grid-tile>
 
         <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'#F4F6F8'">
-          <button  type="submit" [disabled]="form.invalid" style="margin-right: 20px" mat-raised-button >
-            <mat-icon class="verde" >save</mat-icon>Guardar cambios
+          <button type="submit" [disabled]="form.invalid" style="margin-right: 20px" mat-raised-button>
+            <mat-icon class="verde">save</mat-icon>Guardar cambios
           </button>
-          <button  type="button" (click)="volverAtras()" mat-raised-button>
+          <button type="button" (click)="volverAtras()" mat-raised-button>
             <mat-icon class="rojo">reply</mat-icon>Regresar sin guardar
           </button>
         </mat-grid-tile>

@@ -1,18 +1,21 @@
-import { ModeloService } from './../../services/modelo.service';
+//Angular
 import { Component } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
-
 import { Router, ActivatedRoute } from '@angular/router';
 
+//Propios
+import { ModeloService } from './../../services/modelo.service';
+import { Micro } from 'src/app/models/micro';
+import { MicroService } from 'src/app/services/micro.service';
+
+//Material
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DetalleComponent } from '../detalle/detalle.component';
-import { Micro } from 'src/app/models/micro';
-import { MicroService } from 'src/app/services/micro.service';
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -33,7 +36,9 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     private router: Router,
     public dialog: MatDialog,
     private matSnackBar: MatSnackBar,
-  ) { }
+  ) {
+    this.obtenerMicro()
+  }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(DetalleComponent, {
@@ -47,7 +52,6 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   clickedRows = new Set<Micro>();
  dataSource!: MatTableDataSource<any>;
 
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -59,25 +63,32 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   }
 
 
-  // obtenerMicro() {
-  //   this.microService.findAll().subscribe(res => {
-  //     if (res.body)
-  //     this.microList = res.body.map(jason => {
-  //       const micro = new Micro(jason.id, jason.patente, jason.cantidadAsientos, jason.modeloId,);
-  //       this.cargarModelo(micro);
-  //       console.log(res.body)
-  //       this.dataSource.data = this.microList ;
-  //       this.dataSource.paginator = this.paginator;
-  //       this.dataSource.sort = this.sort;
-  //       console.log(this.microList)
-  //       console.log(micro)
-  //       return micro;
-  //     });
-  //   })
-  // }
-
-
   obtenerMicro() {
+    this.microService.findAll().subscribe(res => {
+      if (res.body)
+      this.microList = res.body.map(json => {
+        const micro = new Micro(json.id, json.patente, json.cantidadAsientos, json.modeloId,);
+        this.cargarModelo(micro);
+        console.log(res.body)
+        this.dataSource.data = this.microList ;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        console.log(this.microList)
+        console.log(micro)
+        return micro;
+      });
+    })
+  }
+
+  // this.busService.findAll().subscribe(res => {
+  //   this.busList = res.body.map(json => {
+  //     const bus = new Bus(json.id, json.patente, json.cantidadAsientos, json.modeloId);
+  //     this.findModeloColectivo(bus);
+  //     return bus;
+  //   });
+  // },
+
+  obtenerMicroOK() {
     this.microService.findAll().subscribe(res => {
       if (res.body)
         this.microList = res.body.map(json => new Micro(json.id, json.patente, json.cantidadAsientos,json.modeloId)); //como estan en la tabla de la base de datos

@@ -16,8 +16,6 @@ export class MicroService {
   microList: Micro[] = [  ];
 
 
-
-
   findAll(): Observable<HttpResponse<any[]>> {
     return this.http.get<any[]>(this.resourceUrl, { observe: "response" }).pipe(
       catchError(err => {
@@ -27,53 +25,57 @@ export class MicroService {
     );
   }
 
-
-
-
-  findOne(id: number): Observable<HttpResponse<any>> {
-    return this.http.get<any>(this.resourceUrl + '/' + id, { observe: "response" }).pipe(
+  findOne(id: number): Observable<HttpResponse<Micro>> {
+    return this.http.get<Micro>(this.resourceUrl + '/' + id, { observe: "response" }).pipe(
       catchError(err => {
         console.log("Ocurrio un error: ");
         console.log(err);
-        return throwError(() => "No existe la persona");
+        return throwError(() => "No existe el micro");
       }),
     );
   }
 
-
+  findOneSinObserve(id: number): Observable<Micro> {
+    return this.http.get<Micro>(this.resourceUrl + '/' + id).pipe(
+      catchError(err => {
+        console.log(err.message);
+        return throwError(() => 'Ocurrio un problema');
+      })
+    );
+  }
 
   agregar(micro: MicroData): Observable<any> {
     return this.http.post<any>(this.resourceUrl, micro).pipe(
       catchError(err => {
 
         console.log(err);
-        return throwError(() => "No se pudo crear la persona");
+        return throwError(() => "No se pudo crear el micro");
       }),
     );
   }
-
 
   actualizar(micro: MicroData): Observable<any> {
     return this.http.put<any>(this.resourceUrl + '/' + micro.id, micro).pipe(
       catchError(err => {
         console.log("Ocurrio un error: ");
         console.log(err);
-        return throwError(() => "No existe la persona");
+        return throwError(() => "No existe el micro");
       }),
     );
   }
-
 
   eliminar(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(this.resourceUrl + '/' + id, { observe: "response" }).pipe(
       catchError(err => {
         console.log("Ocurrio un error: ");
         console.log(err);
-        return throwError(() => "No existe la persona");
+        return throwError(() => "No existe el dato a eliminar");
       }),
     );
   }
 }
+
+
 
 export interface MicroData {
   id: number,

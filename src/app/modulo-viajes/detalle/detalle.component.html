@@ -1,0 +1,144 @@
+<mat-toolbar class="toolbar">
+  <span class="contenedor2">Datos del Viaje</span>
+</mat-toolbar>
+
+
+<div class="contenedor2">
+  <mat-card>
+    <form [formGroup]="form" (ngSubmit)="guardarCambios()">
+      <mat-grid-list cols="11" rowHeight="75px" class="grid">
+
+        <!-- Viaje -->
+        <mat-grid-tile [colspan]="3" [rowspan]="3" [style.background]="'#F9FBFD'">
+          <img src="./assets/viajes.png" alt=""  width="130" height="230" />
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="8" [rowspan]="1" [style.background]="'#F9FBFD'">
+
+          <mat-form-field class="ancho">
+            <mat-label>Origen</mat-label>
+            <input matInput formControlName="origen" />
+          </mat-form-field>
+
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="8" [rowspan]="1" [style.background]="'#F9FBFD'">
+
+          <mat-form-field class="ancho">
+            <mat-label>Destino</mat-label>
+            <input matInput formControlName="destino" />
+          </mat-form-field>
+
+        </mat-grid-tile>
+
+         <!-- Fecha de Salida -->
+        <mat-grid-tile [colspan]="4" [rowspan]="1" [style.background]="'#F9FBFD'">
+
+          <mat-form-field class="ancho">
+            <mat-label>Fecha de Salida</mat-label>
+
+            <input matInput formControlName="fechaSalida" [matDatepicker]="pickerSalida">
+
+            <mat-hint class="letraChica">DD/MM/YYYY</mat-hint>
+
+            <mat-datepicker-toggle matIconSuffix [for]="pickerSalida"></mat-datepicker-toggle>
+            <mat-datepicker #pickerSalida></mat-datepicker>
+            <div
+            *ngIf="form.controls['fechaSalida'].invalid && (form.controls['fechaSalida'].dirty || form.controls['fechaSalida'].touched)">
+            <mat-hint *ngIf!="form.controls['fechaSalida'].errors['required']" style="color: red">
+              complete el campo
+            </mat-hint>
+          </div>
+          </mat-form-field>
+
+        </mat-grid-tile>
+
+         <!-- Fecha de Llegada -->
+        <mat-grid-tile [colspan]="4" [rowspan]="1" [style.background]="'#F9FBFD'">
+          <mat-form-field class="ancho">
+            <mat-label>Fecha de Llegada</mat-label>
+
+            <input matInput formControlName="fechaLlegada" [matDatepicker]="pickerLlegada">
+            <mat-hint class="letraChica" > DD/MM/YYYY </mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="pickerLlegada"></mat-datepicker-toggle>
+            <mat-datepicker #pickerLlegada></mat-datepicker>
+
+            <div
+              *ngIf="form.controls['fechaLlegada'].invalid && (form.controls['fechaLlegada'].dirty || form.controls['fechaLlegada'].touched)">
+              <mat-hint *ngIf!="form.controls['fechaLlegada'].errors['required']" style="color: red">
+                complete el campo
+              </mat-hint>
+            </div>
+
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <!-- Micro -->
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'F9FBFD'">
+          <img src="./assets/bus-80.png" alt="" width="45" height="55"  />
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="10" [rowspan]="1" [style.background]="'#F9FBFD'">
+          <mat-form-field class="ancho">
+            <mat-label>Colectivo</mat-label>
+            <mat-select formControlName="colectivo">
+              <mat-option disabled> -- </mat-option>
+              <mat-option *ngFor="let micro of microList" [value]="micro.id">
+                {{micro.patente}} - {{micro.cantidadAsientos}} - {{micro.modelo.marca}}
+              </mat-option>
+            </mat-select>
+
+            <div
+              *ngIf="form.controls['colectivo'].invalid && (form.controls['colectivo'].dirty || form.controls['colectivo'].touched)">
+              <mat-hint *ngIf!="form.controls['colectivo'].errors['required']" style="color: red">
+                complete el campo
+              </mat-hint>
+
+            </div>
+          </mat-form-field>
+        </mat-grid-tile>
+
+
+       <!-- Pasajeros -->
+
+       <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'F9FBFD'">
+        <img src="./assets/personas.png" alt="" width="50" height="40"  />
+      </mat-grid-tile>
+
+
+        <mat-grid-tile [colspan]="10" [rowspan]="1" [style.background]="'#F9FBFD'">
+          <mat-form-field class="ancho">
+            <mat-label>Pasajeros</mat-label>
+
+            <mat-select formControlName="pasajeros" multiple>
+              <mat-option *ngFor="let persona of personaList" [value]="persona.id">
+                {{persona.nombre}} {{persona.apellido}}
+              </mat-option>
+            </mat-select>
+
+            <div
+              *ngIf="form.controls['pasajeros'].invalid && (form.controls['pasajeros'].dirty || form.controls['pasajeros'].touched)">
+              <mat-hint *ngIf!="form.controls['pasajeros'].errors['required']" style="color: red">
+                complete el campo
+              </mat-hint>
+
+            </div>
+          </mat-form-field>
+        </mat-grid-tile>
+
+
+        <mat-grid-tile [colspan]="11" [rowspan]="1" [style.background]="'#F4F6F8'">
+          <button type="submit" [disabled]="form.invalid" style="margin-right: 20px" mat-raised-button>
+            <mat-icon class="verde">save</mat-icon>Guardar cambios
+          </button>
+          <button type="button" (click)="volverAtras()" mat-raised-button>
+            <mat-icon class="rojo">reply</mat-icon>Regresar sin guardar
+          </button>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+    </form>
+  </mat-card>
+
+</div>

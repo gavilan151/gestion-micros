@@ -1,6 +1,6 @@
 import { Micro } from "./micro";
 
-export class Trip {
+export class Viaje {
   id: number;
   lugarSalida: string;
   lugarDestino: string;
@@ -10,7 +10,7 @@ export class Trip {
   idColectivo: number;
   colectivo!: Micro;
 
-  constructor(id: number, lugarSalida: string, lugarDestino: string, fechaLlegada: string, fechaSalida: string, idColectivo: number) {
+  constructor(id: number, lugarSalida: string, lugarDestino: string, fechaLlegada: Date, fechaSalida: Date, idColectivo: number) {
     this.id = id;
     this.lugarSalida = lugarSalida;
     this.lugarDestino = lugarDestino;
