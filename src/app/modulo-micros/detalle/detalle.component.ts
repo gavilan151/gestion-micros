@@ -69,7 +69,7 @@ export class DetalleComponent implements OnInit {
     this.microService.findOne(id).subscribe(res => {
       if (res.body) {
         this.microSeleccionado = new Micro(res.body.id, res.body.patente,  res.body.cantidadAsientos, res.body.modeloId);
-
+          
           this.form.patchValue({
           id: this.microSeleccionado.id,
           patente: this.microSeleccionado.patente,

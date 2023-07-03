@@ -33,6 +33,26 @@ export class ViajeService {
     );
   }
 
+  agregar(viaje: ViajeData): Observable<any> {
+    return this.http.post<any>(this.resourceUrl, viaje).pipe(
+      catchError(err => {
+
+        console.log(err);
+        return throwError(() => "No se pudo crear el micro");
+      }),
+    );
+  }
+
+  actualizar(viaje: ViajeData): Observable<any> {
+    return this.http.put<any>(this.resourceUrl + '/' + viaje.id, viaje).pipe(
+      catchError(err => {
+        console.log("Ocurrio un error: ");
+        console.log(err);
+        return throwError(() => "No existe el micro");
+      }),
+    );
+  }
+
   eliminar(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(this.resourceUrl + '/' + id, { observe: "response" }).pipe(
       catchError(err => {

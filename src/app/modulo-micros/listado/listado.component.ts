@@ -67,7 +67,8 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     this.microService.findAll().subscribe(res => {
       if (res.body)
       this.microList = res.body.map(json => {
-        const micro = new Micro(json.id, json.patente, json.cantidadAsientos, json.modeloId,);
+        const micro = new Micro(json.id, json.patente, json.cantidadAsientos, json.modeloId,); //como estan en la tabla de la base de datos
+
         this.cargarModelo(micro);
         console.log(res.body)
         this.dataSource.data = this.microList ;
@@ -79,14 +80,6 @@ export class ListadoComponent implements OnInit, AfterViewInit {
       });
     })
   }
-
-  // this.busService.findAll().subscribe(res => {
-  //   this.busList = res.body.map(json => {
-  //     const bus = new Bus(json.id, json.patente, json.cantidadAsientos, json.modeloId);
-  //     this.findModeloColectivo(bus);
-  //     return bus;
-  //   });
-  // },
 
   obtenerMicroOK() {
     this.microService.findAll().subscribe(res => {
@@ -121,7 +114,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   }
 
   eliminar(id: number) {
-    this.microService.eliminar(id).subscribe(res => {
+    this.microService.eliminar(id).subscribe(() => {
       this.matSnackBar.open("El registro fue borrado correctamente", "Cerrar", {duration: 3000});
       this.obtenerMicro();
     }, error => {

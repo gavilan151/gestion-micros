@@ -74,7 +74,6 @@
         </mat-grid-tile>
 
         <!-- Micro -->
-
         <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'F9FBFD'">
           <img src="./assets/bus-80.png" alt="" width="45" height="55"  />
         </mat-grid-tile>
@@ -85,7 +84,8 @@
             <mat-select formControlName="colectivo">
               <mat-option disabled> -- </mat-option>
               <mat-option *ngFor="let micro of microList" [value]="micro.id">
-                {{micro.patente}} - {{micro.cantidadAsientos}} - {{micro.modelo.marca}}
+                {{micro.patente}} - {{micro.cantidadAsientos}}
+                <!-- - {{micro.modelo.marca}} -->
               </mat-option>
             </mat-select>
 
@@ -101,7 +101,6 @@
 
 
        <!-- Pasajeros -->
-
        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'F9FBFD'">
         <img src="./assets/personas.png" alt="" width="50" height="40"  />
       </mat-grid-tile>

@@ -58,7 +58,7 @@ export class ListadoComponent implements OnInit, AfterViewInit {
         this.viajeList = res.body.map(res => {
           const viaje = new Viaje(res.id, res.lugarDestino, res.lugarSalida, res.fechaLlegada, res.fechaSalida, res.idColectivo);
           this.cargarColectivo(viaje);
-          this.dataSource.data = this.viajeList ;
+          this.dataSource.data = this.viajeList;
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           return viaje;
@@ -74,11 +74,11 @@ export class ListadoComponent implements OnInit, AfterViewInit {
 
   editar(xviaje: string) {
     // this.openDialog('1ms', '1ms'); //abre en una ventana
-     this.router.navigate(["viaje","detalle", xviaje])
-   }
+    this.router.navigate(["viaje", "detalle", xviaje])
+  }
 
-   nuevo() {
-    this.router.navigate(["viaje","alta"])
+  nuevo() {
+    this.router.navigate(["viaje", "alta"])
   }
 
   ngAfterViewInit() {
@@ -95,11 +95,12 @@ export class ListadoComponent implements OnInit, AfterViewInit {
 
   eliminar(id: number) {
     this.viajeService.eliminar(id).subscribe(res => {
-      this.matSnackBar.open("El registro fue borrado correctamente", "Cerrar", {duration: 3000});
+      this.matSnackBar.open("El registro fue borrado correctamente", "Cerrar", { duration: 3000 });
       this.obtenerViaje();
     }, error => {
       console.log(error);
       this.matSnackBar.open(error, "Cerrar");
     });
   }
+
 }
