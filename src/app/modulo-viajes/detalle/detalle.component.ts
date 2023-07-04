@@ -15,7 +15,6 @@ import { persona } from 'src/app/models/persona';
 import { ModeloService } from 'src/app/services/modelo.service';
 
 
-
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.component.html',
@@ -67,8 +66,7 @@ export class DetalleComponent {
       if (res.body) {
         this.viajeSeleccionado = new Viaje(res.body.id, res.body.lugarSalida, res.body.lugarDestino,
           res.body.fechaLlegada, res.body.fechaSalida, res.body.idColectivo);
-          this.cargarColectivo(this.viajeSeleccionado)
-          this.findMicro(this.viajeSeleccionado)
+
         this.form.patchValue({
           id: this.viajeSeleccionado.id,
           origen: this.viajeSeleccionado.lugarSalida,
@@ -76,36 +74,19 @@ export class DetalleComponent {
           fechaSalida: this.viajeSeleccionado.fechaSalida,
           fechaLlegada: this.viajeSeleccionado.fechaLlegada,
           idColectivo: this.viajeSeleccionado.idColectivo,
-          colectivo: this.viajeSeleccionado.colectivo,
+          colectivo: this.viajeSeleccionado.idColectivo,
+          pasajeros: this.viajeSeleccionado.personaId,
 
         })
-        console.log("this.viajeSeleccionado.colectivo");
-        console.log(this.viajeSeleccionado.colectivo);
-        console.log(this.viajeSeleccionado);
-        console.log(this.viajeSeleccionado.colectivo);
+        console.log("this.viajeSeleccionado.personaId");
+       // console.log(this.viajeSeleccionado.colectivo);
+       //console.log(this.viajeSeleccionado);
+       // console.log(this.viajeSeleccionado?.personaId);
       }
     }, error => {
       console.log(error);
       this.matSnackBar.open(error, "Cerrar", { duration: 3000 });
       this.router.navigate(['viaje', 'listado']);
-    })
-  }
-
-  findMicro(viaje: Viaje){
-    this.microService.findOneSinObserve(viaje.idColectivo).subscribe(res => {
-      viaje.colectivo = new Micro(res.id, res.patente, res.cantidadAsientos, res.modeloId);
-      this.cargaMicroModelo( viaje.colectivo)
-    },
-    error => {
-      console.log(error);
-      this.matSnackBar.open(error, "cerrar")
-    })
-    console.log(viaje.colectivo);
-    return viaje.colectivo;
-  }
-  cargarColectivo(viaje: Viaje) {
-    this.microService.findOneSinObserve(viaje.idColectivo).subscribe(res => {   //le paso findOneSinObserve en vez de findOne para tener solo los datos sin la cavecera
-      viaje.colectivo = res;
     })
   }
 

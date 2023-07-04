@@ -6,12 +6,12 @@ import { ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 //Propios
-import { ModeloService } from './../../services/modelo.service';
+import { ModeloService, } from './../../services/modelo.service';
 import { Micro } from 'src/app/models/micro';
 import { MicroService } from 'src/app/services/micro.service';
 
 //Material
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
@@ -26,8 +26,6 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class ListadoComponent implements OnInit, AfterViewInit {
 
   microList: Micro[] = [];
-
-
   microSeleccionado: Micro | null = null;
 
   constructor(
@@ -37,16 +35,12 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private matSnackBar: MatSnackBar,
   ) {
-    this.obtenerMicro()
+    this.dataSource = new MatTableDataSource(this.microList);
+    this.obtenerMicro();
+
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(DetalleComponent, {
-      width: '550px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
-  }
+
 
   displayedColumns: string[] = ['patente', 'cantidadAsientos', 'modeloNombre', 'modeloMarca', "bm"];
   clickedRows = new Set<Micro>();
@@ -57,41 +51,26 @@ export class ListadoComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource(this.microList);
-
     this.obtenerMicro();
-
   }
 
 
   obtenerMicro() {
     this.microService.findAll().subscribe(res => {
       if (res.body)
+
       this.microList = res.body.map(json => {
         const micro = new Micro(json.id, json.patente, json.cantidadAsientos, json.modeloId,); //como estan en la tabla de la base de datos
 
         this.cargarModelo(micro);
-        console.log(res.body)
-        this.dataSource.data = this.microList ;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(this.microList)
-        console.log(micro)
+       console.log(this.microList)
+        //console.log(micro)
         return micro;
       });
+      this.dataSource.data = this.microList ;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
-  }
-
-  obtenerMicroOK() {
-    this.microService.findAll().subscribe(res => {
-      if (res.body)
-        this.microList = res.body.map(json => new Micro(json.id, json.patente, json.cantidadAsientos,json.modeloId)); //como estan en la tabla de la base de datos
-
-        this.dataSource.data = this.microList ;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-  }, error => {
-      console.log("Ocurrio un error, Imposible!");
-    });
   }
 
   cargarModelo(micro: Micro) {
@@ -113,12 +92,19 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     this.router.navigate(["micro","alta"])
   }
 
-  eliminar(id: number) {
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(DetalleComponent, {
+      width: '550px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+
+  eliminar(id: number)  {
     this.microService.eliminar(id).subscribe(() => {
-      this.matSnackBar.open("El registro fue borrado correctamente", "Cerrar", {duration: 3000});
       this.obtenerMicro();
+      this.matSnackBar.open("El registro fue borrado correctamente", "Cerrar", {duration: 3000});
     }, error => {
-      console.log(error);
       this.matSnackBar.open(error, "Cerrar");
     });
   }

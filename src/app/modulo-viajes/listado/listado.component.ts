@@ -17,7 +17,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { DetalleComponent } from '../detalle/detalle.component';
+//import { DetalleComponent } from '../detalle/detalle.component';
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 
@@ -58,11 +58,11 @@ export class ListadoComponent implements OnInit, AfterViewInit {
         this.viajeList = res.body.map(res => {
           const viaje = new Viaje(res.id, res.lugarDestino, res.lugarSalida, res.fechaLlegada, res.fechaSalida, res.idColectivo);
           this.cargarColectivo(viaje);
-          this.dataSource.data = this.viajeList;
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
           return viaje;
         });
+      this.dataSource.data = this.viajeList;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 

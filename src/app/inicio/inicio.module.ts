@@ -17,7 +17,7 @@ import { ModuloPersonaModule } from '../modulo-persona/modulo-persona.module';
   imports: [
     CommonModule,
     InicioRoutingModule,
-    ModuloPersonaModule
+    
 
   ],
   exports: [InicioComponent],

@@ -1,12 +1,12 @@
 
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 import { Micro } from 'src/app/models/micro';
-import { MicroService,MicroData } from 'src/app/services/micro.service';
+import { MicroService, MicroData } from 'src/app/services/micro.service';
 import { Modelo } from 'src/app/models/modelo';
 import { ModeloService } from './../../services/modelo.service';
 
@@ -25,7 +25,7 @@ export class DetalleComponent implements OnInit {
   form: FormGroup = this.fb.group({
     //id: ['', [Validators.required, Validators.maxLength(10)]],
     patente: ['', Validators.required],
-    cantidadAsientos: [ '', [ Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(20), Validators.max(58),],    ],
+    cantidadAsientos: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(20), Validators.max(58),],],
     modelo: [0, Validators.required],
 
   });
@@ -37,7 +37,7 @@ export class DetalleComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private matSnackBar: MatSnackBar,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
@@ -50,14 +50,14 @@ export class DetalleComponent implements OnInit {
     console.log("ver");
   }
 
-  cargaModelo(){
+  cargaModelo() {
     this.modeloService.findAll().subscribe(res => {
       if (res.body) {
-      this.modeloList = res.body.map(json => {
-        const modelo = new Modelo(json.id, json.nombre, json.marca);
-        return modelo;
-      });
-    }
+        this.modeloList = res.body.map(json => {
+          const modelo = new Modelo(json.id, json.nombre, json.marca);
+          return modelo;
+        });
+      }
     },
       error => {
         console.log(error);
@@ -68,18 +68,18 @@ export class DetalleComponent implements OnInit {
   findMicro(id: number) {
     this.microService.findOne(id).subscribe(res => {
       if (res.body) {
-        this.microSeleccionado = new Micro(res.body.id, res.body.patente,  res.body.cantidadAsientos, res.body.modeloId);
-          
-          this.form.patchValue({
+        this.microSeleccionado = new Micro(res.body.id, res.body.patente, res.body.cantidadAsientos, res.body.modeloId);
+
+        this.form.patchValue({
           id: this.microSeleccionado.id,
           patente: this.microSeleccionado.patente,
           cantidadAsientos: this.microSeleccionado.cantidadAsientos,
-          modeloId: this.microSeleccionado.modeloId,
+          modelo: this.microSeleccionado.modeloId,
         })
       }
     }, error => {
       console.log(error);
-      this.matSnackBar.open(error, "Cerrar", {duration: 3000});
+      this.matSnackBar.open(error, "Cerrar", { duration: 3000 });
       this.router.navigate(['micro', 'listado']);
     })
   }
@@ -98,22 +98,22 @@ export class DetalleComponent implements OnInit {
       body.id = this.microSeleccionado.id;
       this.microService.actualizar(body).subscribe(res => {
         this.matSnackBar.open("Se guardaron los cambios correctamente", "Cerrar", { duration: 3000 });
+        this.router.navigate(['/']);
+        this.router.navigate(['micro', 'listado']);
       }, error => {
         console.log(error);
         this.matSnackBar.open(error, "Cerrar");
       });
-
     } else {
       // Llamar al metodo crear
       this.microService.agregar(body).subscribe(res => {
         this.matSnackBar.open("Se efectuo el alta correctamente", "Cerrar", { duration: 3000 });
-
       }, error => {
         console.log(error);
         this.matSnackBar.open(error, "Cerrar");
       });
-
     }
+    this.router.navigate(['/']);
     this.router.navigate(['micro', 'listado']);
   }
 

@@ -58,7 +58,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatGridListModule,
     MatDialogModule,
     MatSnackBarModule,
-  ],
+MatDialogModule  ],
   exports: [
     TopbarComponent, SidebarComponent,
     MatToolbarModule,
@@ -80,6 +80,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatGridListModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatDialogModule
   ],
 })
 export class SharedModule { }

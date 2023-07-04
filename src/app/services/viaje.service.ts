@@ -28,7 +28,7 @@ export class ViajeService {
       catchError(err => {
         console.log("Ocurrio un error: ");
         console.log(err);
-        return throwError(() => "No existe el micro");
+        return throwError(() => "No existe el viaje");
       }),
     );
   }
@@ -38,7 +38,7 @@ export class ViajeService {
       catchError(err => {
 
         console.log(err);
-        return throwError(() => "No se pudo crear el micro");
+        return throwError(() => "No se pudo crear el viaje");
       }),
     );
   }
@@ -48,7 +48,7 @@ export class ViajeService {
       catchError(err => {
         console.log("Ocurrio un error: ");
         console.log(err);
-        return throwError(() => "No existe el micro");
+        return throwError(() => "No existe el viaje");
       }),
     );
   }
@@ -58,7 +58,7 @@ export class ViajeService {
       catchError(err => {
         console.log("Ocurrio un error: ");
         console.log(err);
-        return throwError(() => "No existe la persona");
+        return throwError(() => "No existe el viaje");
       }),
     );
   }

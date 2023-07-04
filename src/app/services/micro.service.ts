@@ -11,8 +11,8 @@ export class MicroService {
 
   constructor(private http: HttpClient) { }
 
-  //resourceUrl = environment.backendUrl + "colectivos"
-  resourceUrl = "https://k8s-lia.unrn.edu.ar/api/api/colectivos"
+  resourceUrl = environment.backendUrl + "colectivos"
+  //resourceUrl = "https://k8s-lia.unrn.edu.ar/api/api/colectivos"
   microList: Micro[] = [  ];
 
 
@@ -65,7 +65,8 @@ export class MicroService {
   }
 
   eliminar(id: number): Observable<HttpResponse<any>> {
-    return this.http.delete<any>(this.resourceUrl + '/' + id, { observe: "response" }).pipe(
+      return this.http.delete<any>(this.resourceUrl + '/' + id).pipe(
+
       catchError(err => {
         console.log("Ocurrio un error: ");
         console.log(err);

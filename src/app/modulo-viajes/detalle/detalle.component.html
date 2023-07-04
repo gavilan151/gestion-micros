@@ -1,4 +1,4 @@
-<mat-toolbar class="toolbar">
+<mat-toolbar class="toolbar">MicroData
   <span class="contenedor2">Datos del Viaje</span>
 </mat-toolbar>
 
@@ -84,8 +84,7 @@
             <mat-select formControlName="colectivo">
               <mat-option disabled> -- </mat-option>
               <mat-option *ngFor="let micro of microList" [value]="micro.id">
-                {{micro.patente}} - {{micro.cantidadAsientos}}
-                <!-- - {{micro.modelo.marca}} -->
+                {{micro.modelo?.marca}} - Patente: {{micro.patente}} - {{micro.cantidadAsientos}} Asientos
               </mat-option>
             </mat-select>
 
