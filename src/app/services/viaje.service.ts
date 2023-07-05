@@ -23,7 +23,17 @@ export class ViajeService {
     );
   }
 
-  findOne(id: number): Observable<HttpResponse<Viaje>> {
+  findOne(id: number): Observable<Viaje> {
+    return this.http.get<Viaje>(this.resourceUrl + '/' + id).pipe(
+      catchError(err => {
+        console.log("Ocurrio un error: ");
+        console.log(err);
+        return throwError(() => "No existe el viaje");
+      }),
+    );
+  }
+
+  findOneConresponse(id: number): Observable<HttpResponse<Viaje>> {
     return this.http.get<Viaje>(this.resourceUrl + '/' + id, { observe: "response" }).pipe(
       catchError(err => {
         console.log("Ocurrio un error: ");

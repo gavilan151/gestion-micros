@@ -84,7 +84,7 @@
             <mat-select formControlName="colectivo">
               <mat-option disabled> -- </mat-option>
               <mat-option *ngFor="let micro of microList" [value]="micro.id">
-                {{micro.modelo?.marca}} - Patente: {{micro.patente}} - {{micro.cantidadAsientos}} Asientos
+                {{micro?.modelo?.marca}} - Patente: {{micro.patente}} - {{micro.cantidadAsientos}} Asientos
               </mat-option>
             </mat-select>
 

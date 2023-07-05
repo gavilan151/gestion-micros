@@ -63,9 +63,7 @@ export class DetalleComponent {
 
   findViaje(id: number) {
     this.viajeService.findOne(id).subscribe(res => {
-      if (res.body) {
-        this.viajeSeleccionado = new Viaje(res.body.id, res.body.lugarSalida, res.body.lugarDestino,
-          res.body.fechaLlegada, res.body.fechaSalida, res.body.idColectivo);
+        this.viajeSeleccionado = res;
 
         this.form.patchValue({
           id: this.viajeSeleccionado.id,
@@ -77,12 +75,8 @@ export class DetalleComponent {
           colectivo: this.viajeSeleccionado.idColectivo,
           pasajeros: this.viajeSeleccionado.personaId,
 
-        })
-        console.log("this.viajeSeleccionado.personaId");
-       // console.log(this.viajeSeleccionado.colectivo);
-       //console.log(this.viajeSeleccionado);
-       // console.log(this.viajeSeleccionado?.personaId);
-      }
+        });
+       // this.form.get("pasajeros")?.setValue(this.viajeSeleccionado.personaId);
     }, error => {
       console.log(error);
       this.matSnackBar.open(error, "Cerrar", { duration: 3000 });
