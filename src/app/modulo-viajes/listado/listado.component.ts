@@ -17,8 +17,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-//import { DetalleComponent } from '../detalle/detalle.component';
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { PasajerosComponent } from '../pasajeros/pasajeros.component';
 
 
 @Component({
@@ -103,4 +103,18 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     });
   }
 
+ 
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(PasajerosComponent, {
+      width: '800px',
+      height:'550px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+  ventanaPasajeros(){
+    this.openDialog('1ms', '1ms');
+  }
 }
+

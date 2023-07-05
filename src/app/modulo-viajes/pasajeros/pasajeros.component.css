@@ -1,7 +1,4 @@
-.boton-editar {
-  margin-right: 8px;
-  text-align: center;
-}
+
 
 .demo-table {
   width: 100%;
@@ -39,17 +36,18 @@
   width: 100%;
 }
 
-.bm {
-  text-align: right;
-  cursor: pointer;
+
+.toolbarPasajeros{
+  margin-bottom: 10px;
+  height: 5rem;
 }
-
-.altaViaje {
-  cursor: pointer;
-  margin:  14.7%;
+.contenedorPasajeros {
+  margin-top: 5%;
+  margin: 0 10%;
 
 }
+.cerrarVentana {
+  cursor: pointer;
+  margin:  8%;
 
-.botonesTabla {
-  margin:  2%;
 }

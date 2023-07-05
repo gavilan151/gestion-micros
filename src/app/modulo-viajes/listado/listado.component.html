@@ -61,15 +61,17 @@
     <ng-container matColumnDef="bm">
       <th mat-header-cell *matHeaderCellDef class="headerCentrada"></th>
       <td mat-cell *matCellDef="let element" class="bm">
+        <!-- PASAJEROS -->
+        <a style="color: #087438" class="botonesTabla">
+          <mat-icon #tooltip="matTooltip" matTooltip="Mostrar listado de pasajeros" (click)="ventanaPasajeros()"> airline_seat_recline_extra </mat-icon>
+        </a>
         <!-- EDITAR -->
-        <a style="color: #1878b0">
-          <mat-icon #tooltip="matTooltip" matTooltip="Editar Datos" (click)="editar(element.id)">edit
-          </mat-icon>
+        <a style="color: #1878b0" class="botonesTabla">
+          <mat-icon #tooltip="matTooltip" matTooltip="Editar Datos" (click)="editar(element.id)"> edit </mat-icon>
         </a>
         <!-- BORRAR -->
-        <a style="color: #ce0e14">
-          <mat-icon #tooltip="matTooltip" matTooltip="Borrar Datos" (click)="eliminar(element.id)">delete_forever
-          </mat-icon>
+        <a style="color: #ce0e14" class="botonesTabla">
+          <mat-icon #tooltip="matTooltip" matTooltip="Borrar Datos" (click)="eliminar(element.id)"> delete_forever </mat-icon>
         </a>
       </td>
     </ng-container>
