@@ -10,6 +10,9 @@ import { MicroService } from 'src/app/services/micro.service';
 import { ViajeService } from 'src/app/services/viaje.service';
 import { Viaje } from 'src/app/models/viaje';
 import { Micro } from 'src/app/models/micro';
+import { PersonaService } from 'src/app/services/persona.service';
+import { persona } from 'src/app/models/persona';
+import { PasajerosComponent } from '../pasajeros/pasajeros.component';
 
 
 //Material
@@ -18,7 +21,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { PasajerosComponent } from '../pasajeros/pasajeros.component';
 
 
 @Component({
@@ -29,6 +31,8 @@ import { PasajerosComponent } from '../pasajeros/pasajeros.component';
 export class ListadoComponent implements OnInit, AfterViewInit {
   viajeList: Viaje[] = [];
   microSeleccionado: Viaje | null = null;
+  personaList: persona[] = [];
+  viajeSeleccionado: Viaje | null = null;
 
   constructor(
     private viajeService: ViajeService,
@@ -53,6 +57,20 @@ export class ListadoComponent implements OnInit, AfterViewInit {
   }
 
   obtenerViaje() {
+    this.viajeService.findAll().subscribe(res => {
+      if (res.body)
+        this.viajeList = res.body.map(res => {
+          const viaje = new Viaje(res.id, res.lugarDestino, res.lugarSalida, res.fechaLlegada, res.fechaSalida, res.idColectivo);
+          this.cargarColectivo(viaje);
+          return viaje;
+        });
+      this.dataSource.data = this.viajeList;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+  }
+
+  obtenerViajeOK() {
     this.viajeService.findAll().subscribe(res => {
       if (res.body)
         this.viajeList = res.body.map(res => {
@@ -103,18 +121,30 @@ export class ListadoComponent implements OnInit, AfterViewInit {
     });
   }
 
- 
 
+  findViaje(id: number) {
+    this.viajeService.findOne(id).subscribe(res => {
+        this.viajeSeleccionado = res;
+          pasajeros: this.viajeSeleccionado.personaId;
+     return  this.viajeSeleccionado.personaId;
+    });
+  }
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+
     this.dialog.open(PasajerosComponent, {
       width: '800px',
       height:'550px',
       enterAnimationDuration,
       exitAnimationDuration,
+      data: {persona:  this.viajeSeleccionado?.personaId},
+      //data: {persona: this.personaList}
     });
+    console.log( this.viajeSeleccionado?.personaId);
   }
-  ventanaPasajeros(){
+  ventanaPasajeros(id: number){
+    this.findViaje(id)
     this.openDialog('1ms', '1ms');
+
   }
 }
 

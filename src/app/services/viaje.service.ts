@@ -23,6 +23,15 @@ export class ViajeService {
     );
   }
 
+  findAllSinresponse(): Observable<any[]> {
+    return this.http.get<any[]>(this.resourceUrl).pipe(
+      catchError(err => {
+        console.log(err.message);
+        return throwError(() => 'Ocurrio un error');
+      })
+    );
+  }
+
   findOne(id: number): Observable<Viaje> {
     return this.http.get<Viaje>(this.resourceUrl + '/' + id).pipe(
       catchError(err => {
